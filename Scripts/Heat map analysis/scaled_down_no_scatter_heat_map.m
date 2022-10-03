@@ -32,7 +32,7 @@ almost_scaled_number_of_points = nansum(nansum(almost_scaled_heat_map));
 scaled_number_of_points = nansum(nansum(scaled_heat_map));
 points_ratio = scaled_number_of_points/almost_scaled_number_of_points;
 
-%% Calculate the same ratio for the total number of pixels (sanity check).
+%% Calculate the same ratio for the total number of pixels (sanity check)
 % Theoretically points_ratio = pixels_ratio.
 almost_scaled_number_of_pixels = numel(almost_scaled_heat_map);
 scaled_number_of_pixels = numel(scaled_heat_map);
