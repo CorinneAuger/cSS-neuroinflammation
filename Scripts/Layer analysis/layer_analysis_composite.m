@@ -5,44 +5,38 @@
 clear
 
 %% User input
-stain = 'CD68';
+stain = 'GFAP';
 
 %% Input directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
+directory.scripts = '/Users/corinneauger/Desktop/R graphs';
 directory.save = '/Users/corinneauger/Desktop/R graphs';
 
 %% Import data
 cd(directory.input)
-load('Variables_all_brains_1000um_Iron_edge_analysis')
+load(sprintf('Variables_all_brains_1000um_%s_edge_analysis', stain));
 close all
 
 %% Set up color palettes
+% Get dark color palette using color_darken.py
 if strcmp(stain, 'Iron')
-    color_palette = [0.79, 0.25, 0.19];
-    dark_color_palette = [0, 0, 0];
+    color_palette = [0.61, 0.70, 0.82];
+    dark_color_palette = [0.23, 0.34, 0.49];
 elseif strcmp(stain, 'GFAP')
-    color_palette = [0.3, 0.74, 0.87];
-    dark_color_palette = [0, 0, 0];
+    color_palette = [0.90, 0.58, 0.54];
+    dark_color_palette = [0.59, 0.18, 0.13];
 elseif strcmp(stain, 'CD68')
-    color_palette = [0.63, 0.83, 0.55];
-    dark_color_palette = [0, 0, 0];
+    color_palette = [0.91, 0.65, 0.38];
+    dark_color_palette = [0.56, 0.33, 0.08];
 end
 
 %% Get percentiles
-percentiles_to_be_cleared = prctile(layer_densities_all_brains, [25, 50, 75]);
-if layer_width == 500
-    number_of_layers = 40 - numel(find(isnan(percentiles_to_be_cleared(2,:))));
-elseif layer_width == 1000
-    number_of_layers = 20 - numel(find(isnan(percentiles_to_be_cleared(2,:))));
-end
-clear percentiles_to_be_cleared
-
 percentiles = prctile(layer_densities_all_brains(:, 1:5), [25, 50, 75]);
 
 %% Make figure with points
 for column_number = 1:5
     temp_column = column_number * ones(26,1);   
-    scatter(temp_column, layer_densities_all_brains(:,column_number), 200, '.', 'MarkerEdgeColor', color_palette);   
+    scatter(temp_column, layer_densities_all_brains(:,column_number), 50, 'filled', 'MarkerEdgeColor', dark_color_palette, 'MarkerFaceColor', color_palette);   
     hold on
 end
 
@@ -56,9 +50,9 @@ plot(percentiles(2, 1:5), 'LineStyle', '-', 'LineWidth', 1.5, 'Color', dark_colo
 % X ticks
 xlim([1 5]); 
 xticks([1 5]);
+
 labels = {'Outermost', 'Innermost'};
 xticklabels(labels)
-
 a = get(gca,'XTickLabel');
 set(gca, 'XTickLabel', a, 'fontsize', 11, 'fontweight', 'bold')
 
