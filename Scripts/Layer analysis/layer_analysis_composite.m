@@ -5,7 +5,7 @@
 clear
 
 %% User input
-stain = 'CD68';
+stain = 'Iron';
 
 %% Input directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
@@ -61,7 +61,7 @@ xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
 ylabel('Mean density (%)', 'FontSize', 20, 'FontWeight', 'bold');
 
 % Title
-title(stain, 'FontSize', 25)
+title(sprintf('%s: all brains', stain), 'FontSize', 25)
 
 % Border
 box on 
