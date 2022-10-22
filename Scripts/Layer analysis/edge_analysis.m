@@ -255,7 +255,7 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
     
     % Prepare color palettes
     color = jet(number_of_layers);
-    dark_color = brighten(color, -0.5);
+    dark_color = color./2;
     
     % Make figure
     figure;
@@ -292,6 +292,7 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
     ax = gca;
     ax.LineWidth = 1;
 
+    % Cortex figure
     double_tissue_mask = double(tissue_mask);
 
     rainbow_figure = cat(3, double_tissue_mask, double_tissue_mask, double_tissue_mask);
