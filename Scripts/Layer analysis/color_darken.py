@@ -1,3 +1,5 @@
+# Darkens color for borders around points on a plot
+
 import colorsys
 
 def scale_lightness(rgb, scale_l):
