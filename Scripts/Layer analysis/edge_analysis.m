@@ -267,7 +267,7 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
     
     % Plot points
     for k = 1:number_of_layers
-        scatter(k, layer_densities(k), 50, 'filled', 'MarkerEdgeColor', dark_color((number_of_layers + 1)-k,:), 'MarkerFaceColor', color((number_of_layers + 1)-k,:));   
+        scatter(k, layer_densities(k), 100, 'filled', 'MarkerEdgeColor', dark_color((number_of_layers + 1)-k,:), 'MarkerFaceColor', color((number_of_layers + 1)-k,:));   
         hold on
     end
     
