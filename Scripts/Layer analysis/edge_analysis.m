@@ -252,21 +252,45 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
     clear k l m
 
     %% Make plot of density at each layer
-
-    figure;
-    subplot(1,2,1)
+    
+    % Prepare color palettes
     color = jet(number_of_layers);
+    dark_color = brighten(color, -0.5);
+    
+    % Make figure
+    figure;
+    %subplot(1,2,1)
+    
+    % Plot line
+    plot(layer_densities, 'Color', 'black', 'LineStyle', '-', 'LineWidth', 1.5);
+    hold on
+    
+    % Plot points
     for k = 1:number_of_layers
-        plot(k, layer_densities(k), '.', 'Color', color((number_of_layers + 1)-k,:), 'MarkerSize', 25);
+        scatter(k, layer_densities(k), 50, 'filled', 'MarkerEdgeColor', dark_color((number_of_layers + 1)-k,:), 'MarkerFaceColor', color((number_of_layers + 1)-k,:));   
         hold on
     end
-
+    
+    % X axis
     xlim([0,number_of_layers]);
-    plot(layer_densities, 'Color', 'black')
-    ylabel(sprintf('%s density (%%)', stain), 'FontSize', 16);
-    %xticks(1:number_of_layers);
     set(gca,'xticklabel',[])
-    title('1000um layers', 'FontSize', 16)
+    set(gca,'XTick',[])
+    
+    % Y axis
+    a = get(gca,'YTickLabel');
+    set(gca, 'YTickLabel', a, 'fontsize', 11, 'fontweight', 'bold')
+    
+    % Axis labels
+    xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
+    ylabel('Iron density (%)', 'FontSize', 20, 'FontWeight', 'bold');
+
+    % Title
+    title('Example section', 'FontSize', 25)
+    
+    % Border
+    box on 
+    ax = gca;
+    ax.LineWidth = 1;
 
     double_tissue_mask = double(tissue_mask);
 
@@ -286,7 +310,7 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
     %title(sprintf('CAA%d__%d__%s', brain, block, stain));
 
     cd(directory.save)
-    figure_save_name = sprintf('CAA%d_%d_%s_edge_analysis_figure.png', brain, block, stain);
+    figure_save_name = sprintf('Example_layer_graph_CAA%d_%d_%s.png', brain, block, stain);
     saveas(gcf, figure_save_name);
     all_variables_save_name = sprintf('CAA%d_%d_%s_edge_analysis_variables.mat', brain, block, stain);
     save(all_variables_save_name);

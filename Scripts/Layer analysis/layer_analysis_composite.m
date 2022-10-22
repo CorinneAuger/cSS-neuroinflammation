@@ -5,7 +5,7 @@
 clear
 
 %% User input
-stain = 'GFAP';
+stain = 'CD68';
 
 %% Input directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
@@ -57,7 +57,7 @@ a = get(gca,'XTickLabel');
 set(gca, 'XTickLabel', a, 'fontsize', 11, 'fontweight', 'bold')
 
 % Axis labels
-xlabel('1000um layer', 'FontSize', 20, 'FontWeight', 'bold');
+xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
 ylabel('Mean density (%)', 'FontSize', 20, 'FontWeight', 'bold');
 
 % Title
