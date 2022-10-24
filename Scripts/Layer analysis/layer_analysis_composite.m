@@ -5,7 +5,7 @@
 clear
 
 %% User input
-stain = 'Iron';
+stain = 'CD68';
 
 %% Input directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
@@ -54,7 +54,11 @@ xticks([1 5]);
 labels = {'Outermost', 'Innermost'};
 xticklabels(labels)
 a = get(gca,'XTickLabel');
-set(gca, 'XTickLabel', a, 'fontsize', 11, 'fontweight', 'bold')
+set(gca, 'XTickLabel', a, 'fontsize', 15, 'fontweight', 'bold')
+
+% Y ticks
+b = get(gca,'YTickLabel');
+set(gca, 'YTickLabel', b, 'fontsize', 15, 'fontweight', 'bold')
 
 % Axis labels
 xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
