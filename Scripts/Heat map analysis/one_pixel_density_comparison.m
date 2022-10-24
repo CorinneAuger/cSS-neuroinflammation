@@ -2,11 +2,10 @@
 % Use after density_comparison to work in accurate object counts rather than densities that underestimate the number of objects in dense areas.
 
 %% User inputs
-inflammatory_marker = 'GFAP';
+inflammatory_marker = 'CD68';
 
-% Try toggling either of these on (replace 0 with 1) if the first try gave a bad mask
+% Try toggling on (replace 0 with 1) if the first try gave a bad mask
 different_mask_thresholding = 0;
-try_CD68_mask = 0;
 
 for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
     for block = [1, 4, 5, 7]
@@ -14,6 +13,7 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
         %% Define directories
         directory.variables = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Density comparison';
         directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
+        directory.mask_documentation = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/Mask documentation';
         directory.CD68_masks = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/CD68/All variables';
         directory.save_all_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/All variables', inflammatory_marker);
         directory.save_crucial_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
@@ -35,7 +35,7 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
 
             cd(directory.variables)
             load(variables_file);
-
+            
             %% Clear old scatter plot variables
             close all
             clear iron_scatter iron_heat_map iron_scatter_1 iron_heat_map_1 iron_scatter_2 iron_heat_map_2 iron_heat_map_sum noncoregistered_inflammation_scatter inverted_noncoregistered_inflammation_scatter_1 noncoregistered_inflammation_scatter_1 inverted_noncoregistered_inflammation_scatter_2 noncoregistered_inflammation_scatter_2 noncoreg_inf_sum
@@ -115,14 +115,35 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
             unscaled_inflammation_heat_map = imwarp(partially_coregistered_inflammation_scatter, D, 'nearest', 'FillValues', 200);
 
             %% Set primary mask
-            primary_mask = inflammation_tissue_mask;
-
-            % Try CD68 mask - TOGGLES ON AND OFF
-            if try_CD68_mask == 1
-                cd(directory.CD68_masks)
-
-                CD68_variables_file_name = sprintf('CAA%d_%d_CD68_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block);
-                load(CD68_variables_file_name, 'primary_mask')
+            clear primary_mask
+            cd(directory.mask_documentation)
+            
+            % Import mask documentation
+            mask_documentation = load('primary_mask_documentation.mat');
+                        
+            % Index to the right line
+            mask_doc_name = sprintf('CAA%d_%d_%s_and_Iron_density_figure.png', brain, block, inflammatory_marker);
+            all_names = {mask_documentation.figures.name};
+            index = find(ismember(all_names, mask_doc_name));
+            
+            % Get name of best mask
+            best_mask_name = mask_documentation.figures(index).mask;
+            
+            % Make that mask the primary mask
+            if strcmp(best_mask_name, 'Iron')
+                primary_mask = iron_tissue_mask;
+            elseif strcmp(best_mask_name, inflammatory_marker)
+                primary_mask = inflammation_tissue_mask;
+            else
+                if strcmp(best_mask_name, 'GFAP')
+                    cd('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/GFAP/All variables'); 
+                    primary_mask_struct = load((sprintf('CAA%d_%d_GFAP_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block)), 'inflammation_tissue_mask');
+                elseif strcmp(best_mask_name, 'CD68')
+                    cd('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/CD68/All variables'); 
+                    primary_mask_struct = load((sprintf('CAA%d_%d_CD68_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block)), 'inflammation_tissue_mask');
+                end
+                
+                primary_mask = primary_mask_struct.inflammation_tissue_mask;
             end
 
             %% Apply masks to scatter plots to put NaNs in non-cortex area
