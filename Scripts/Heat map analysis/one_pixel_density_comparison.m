@@ -186,7 +186,7 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
             iron_patch_objects = reshape(stat_iron, [1, numel(stat_iron)]);
             inflammation_patch_objects = reshape(stat_inflammation, [1, numel(stat_inflammation)]);
             density_comparison_scatter = scatter(iron_patch_objects, inflammation_patch_objects, 25, '.', 'black');
-            ylim([0, (max(inflammation_patch_objects)*(5/3))])
+            ylim([0, max(inflammation_patch_objects*(5/3))])
             xlabel('Iron objects');
             ylabel(sprintf('%s objects', inflammatory_marker));
             title(sprintf('CAA%d__%d', brain, block));
