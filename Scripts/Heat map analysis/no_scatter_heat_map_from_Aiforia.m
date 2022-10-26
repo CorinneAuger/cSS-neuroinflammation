@@ -28,7 +28,12 @@ end
 %end
 
 Aiforia_details_table = readtable(Aiforia_details_sheet_name);
-Aiforia_details_matrix = table2array(Aiforia_details_table(:,22:23));
+
+if strcmp(stain, 'CD68')
+    Aiforia_details_matrix = table2array(Aiforia_details_table(:, 23:24));
+else
+    Aiforia_details_matrix = table2array(Aiforia_details_table(:, 22:23));
+end
 
 %% Take NaNs out of object coordinate matrix
 object_centers_x_with_NaNs = Aiforia_details_matrix(:, 1);
