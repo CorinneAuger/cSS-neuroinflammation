@@ -1,11 +1,9 @@
 %% Layer analysis composite
 % Makes the final graphs for the paper.
 % One stain per graph.
+% Used in end_of_layer_analysis. Can also be used independently.
 
-clear
-
-%% User input
-stain = 'CD68';
+function [] = layer_analysis_composite(stain)
 
 %% Input directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
@@ -35,8 +33,8 @@ percentiles = prctile(layer_densities_all_brains(:, 1:5), [25, 50, 75]);
 
 %% Make figure with points
 for column_number = 1:5
-    temp_column = column_number * ones(26,1);   
-    scatter(temp_column, layer_densities_all_brains(:,column_number), 50, 'filled', 'MarkerEdgeColor', dark_color_palette, 'MarkerFaceColor', color_palette);   
+    temp_column = column_number * ones(26,1);
+    scatter(temp_column, layer_densities_all_brains(:,column_number), 50, 'filled', 'MarkerEdgeColor', dark_color_palette, 'MarkerFaceColor', color_palette);
     hold on
 end
 
@@ -48,7 +46,7 @@ plot(percentiles(2, 1:5), 'LineStyle', '-', 'LineWidth', 1.5, 'Color', dark_colo
 
 %% Format plot
 % X ticks
-xlim([1 5]); 
+xlim([1 5]);
 xticks([1 5]);
 
 labels = {'Outermost', 'Innermost'};
@@ -68,10 +66,12 @@ ylabel('Mean density (%)', 'FontSize', 20, 'FontWeight', 'bold');
 title(sprintf('%s: all brains', stain), 'FontSize', 25)
 
 % Border
-box on 
+box on
 ax = gca;
 ax.LineWidth = 1;
 
 %% Save
 cd(directory.save)
 saveas(gcf, sprintf('%s_layer_graph.png', stain))
+
+end
