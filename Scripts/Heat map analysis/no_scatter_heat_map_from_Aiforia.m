@@ -29,11 +29,14 @@ end
 
 Aiforia_details_table = readtable(Aiforia_details_sheet_name);
 
-if strcmp(stain, 'CD68')
-    Aiforia_details_matrix = table2array(Aiforia_details_table(:, 23:24));
-else
-    Aiforia_details_matrix = table2array(Aiforia_details_table(:, 22:23));
-end
+% Find which table columns have object coordinates
+column_names = Aiforia_details_table.Properties.VariableNames;
+x_col = find(contains(column_names, 'ObjectCenterX__m_'));
+y_col = find(contains(column_names, 'ObjectCenterY__m_'));
+
+Aiforia_details_matrix = table2array(Aiforia_details_table(:, x_col:y_col));
+
+clear column_names x_col y_col
 
 %% Take NaNs out of object coordinate matrix
 object_centers_x_with_NaNs = Aiforia_details_matrix(:, 1);
