@@ -1,7 +1,7 @@
 %% Iron interval bar graph
 
 %% Toggles
-only_count_cSS = 2;
+only_count_cSS = 0;
 % count everything = 0
 % positive slope = 1
 % cSS within the brain from MRI = 2
@@ -94,7 +94,7 @@ for i = 1 : number_of_files
         interval_pixel_counts(4) = interval_pixel_counts(4) + section_count(4);
         
         %% Reset for next iteration
-        clearvars -except directory all_files number_of_files i interval_pixel_counts
+        clearvars -except directory all_files number_of_files i interval_pixel_counts only_count_cSS
     end
 end
 
