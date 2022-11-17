@@ -2,7 +2,7 @@
 % Use after edge_analysis.m to convert from object densities to object counts.
 
 %% User input
-stain = 'CD68';
+stain = 'Iron';
 
 %% Input directories
 directory.variables = sprintf('/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/%s 1000um', stain);
@@ -32,19 +32,20 @@ for brain = 1:25
             
             if strcmp('Iron', stain)
                 
-                % Try to load from GFAP data
-                cd(directory.GFAP_heat_map)
-                heat_map_file_name_GFAP = 'CAA%d_%d_GFAP_and_Iron_1pixel_density_comparison_crucial_variables.mat';
-                if isfile(heat_map_file_name_GFAP)
-                    tmp = load(heat_map_file_name_GFAP, 'iron_heat_map');
+                % Try to load from CD68 data
+                cd(directory.CD68_heat_map)
+                heat_map_file_name_CD68 = sprintf('CAA%d_%d_CD68_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block);
+                if isfile(heat_map_file_name_CD68)
+                    tmp = load(heat_map_file_name_CD68, 'iron_heat_map');
                     heat_map = tmp.iron_heat_map;
                     
-                    % Try to load from CD68 data if GFAP didn't work
+                %Try to load from GFAP data if CD68 didn't work
                 else
-                    heat_map_file_name_CD68 = 'CAA%d_%d_CD68_and_Iron_1pixel_density_comparison_crucial_variables.mat';
+                    cd(directory.GFAP_heat_map)
+                    heat_map_file_name_GFAP = sprintf('CAA%d_%d_GFAP_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block);
                     
-                    if isfile(heat_map_file_name_CD68)
-                        tmp = load(heat_map_file_name_CD68, 'iron_heat_map');
+                    if isfile(heat_map_file_name_GFAP)
+                        tmp = load(heat_map_file_name_GFAP, 'iron_heat_map');
                         heat_map = tmp.iron_heat_map;
                     else
                         continue
@@ -52,7 +53,7 @@ for brain = 1:25
                 end
             else
                 
-                % Get correct directory
+                % Get directory
                 if strcmp('GFAP', stain)
                     cd(directory.GFAP_heat_map)
                 elseif strcmp('CD68', stain)
