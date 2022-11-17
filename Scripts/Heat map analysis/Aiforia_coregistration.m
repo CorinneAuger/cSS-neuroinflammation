@@ -4,7 +4,7 @@
 function [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain)
 
 %% Input directory
-directory.original_images = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Original images';
+directory.original_images = '/Volumes/Corinne hard drive/cSS project/Original images';
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
 
 %% Import images and convert to gray

@@ -2,12 +2,14 @@ function [edge_only_means, no_edge_means] = outer_layer_iron_intervals(brain, in
 % Makes final matrix and graph of iron vs. inflammation data, only looking at the outermost 1000um (basically the outermost layer of pixels).
 % Pixels are 250um * 250um instead of the usual 500um * 500um.
 
+brain = 1; inflammatory_marker = 'GFAP';
+
 close all
 
 %% Input directories
 directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
-directory.edge_mask = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/Iron 1000um';
+directory.edge_mask = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/Iron 1000um/Variables';
 directory.save_heat_map_figures = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel outer and inner layer interval analysis/%s/Heat map figures', inflammatory_marker);
 directory.save_interval_figures = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel outer and inner layer interval analysis/%s/Interval figures', inflammatory_marker);
 directory.save_means = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel outer and inner layer interval analysis/%s/Means', inflammatory_marker);

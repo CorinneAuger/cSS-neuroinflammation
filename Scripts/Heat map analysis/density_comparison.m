@@ -4,7 +4,7 @@
 
 %% Define directories
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
-directory.scripts = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Scripts/Heat map analysis';
+directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
 directory.tissue_screenshots = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Tissue screenshots';
 directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original density comparison';
 
@@ -36,7 +36,7 @@ for brain = [13, 14, 25]  % just for now
 
         number_iron_rois = iron_image_size_matrix(row_number, 3);
 
-        cd(directory.scritps)
+        cd(directory.scripts)
         fixed_image_stain = 'Iron';
         moving_image_stain = inflammatory_marker;
         [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain);
@@ -316,9 +316,9 @@ for brain = [13, 14, 25]  % just for now
         patch_size_pixels = round(patch_size_microns / matlab_pixel_size);
         size_patch = [patch_size_pixels, patch_size_pixels];
 
-        cd '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Scripts'
-        stat_iron = PatchGenerator_density_comparison(iron_heat_map, size_patch, size_patch);
-        stat_inflammation = PatchGenerator_density_comparison(inflammation_heat_map, size_patch, size_patch);
+        cd(directory.scripts)
+        stat_iron = PatchGenerator_density_comparison(iron_heat_map, size_patch, size_patch, 'Zeros');
+        stat_inflammation = PatchGenerator_density_comparison(inflammation_heat_map, size_patch, size_patch, 'Zeros');
 
         %% 8. Dice analysis
 
@@ -339,8 +339,8 @@ for brain = [13, 14, 25]  % just for now
 
         %% 9. make and save data tables and graphs
 
-        iron_patch_densities = reshape(stat_iron.density, [1, numel(stat_iron.density)]);
-        inflammation_patch_densities = reshape(stat_inflammation.density, [1, numel(stat_inflammation.density)]);
+        iron_patch_densities = reshape(stat_iron, [1, numel(stat_iron)]);
+        inflammation_patch_densities = reshape(stat_inflammation, [1, numel(stat_inflammation)]);
         finalfigure = figure;
         finalfigure.Position = [1,1,1500, 482];
         graph = subplot(2,6,[1,2,7,8]);
@@ -386,7 +386,7 @@ for brain = [13, 14, 25]  % just for now
         axis off;
 
         subplot(2,5,4)
-        imshow(stat_iron.density(:,:),[0 80]);
+        imshow(stat_iron(:,:),[0 80]);
         title(sprintf('CAA%d__%d_Iron', brain, block));
         axis image;
         axis off;
@@ -407,7 +407,7 @@ for brain = [13, 14, 25]  % just for now
         axis off;
 
         subplot(2,5,9);
-        imshow(stat_inflammation.density,[0 100]);
+        imshow(stat_inflammation,[0 100]);
         title(sprintf('CAA%d__%d_%s', brain, block, inflammatory_marker));
         axis image;
         axis off;

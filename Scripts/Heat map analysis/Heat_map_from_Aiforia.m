@@ -5,7 +5,7 @@ function heat_map = Heat_map_from_Aiforia(brain, block, stain, roi)
 %% Input directories
 directory.IA_details = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/IA details';
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
-directory.original_images = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Original images';
+directory.original_images = '/Volumes/Corinne hard drive/cSS project/Original images';
 
 %% Convert numbers to strings
 brain_str = num2str(brain);
