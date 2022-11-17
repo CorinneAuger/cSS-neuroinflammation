@@ -1,6 +1,7 @@
 function [] = edge_analysis(brain, block, stain)
 % Compares object density between consecutive artificial 1000um layers of the cortex, one section at a time.
 % First step of layer analysis.
+% Sections analyzed one by one.
 
 %% Input brain, block, stain if not running in a loop (can comment these out if being looped)
 brain = 5;
