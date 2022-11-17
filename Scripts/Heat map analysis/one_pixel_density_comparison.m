@@ -123,11 +123,11 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
                         
             % Index to the right line
             mask_doc_name = sprintf('CAA%d_%d_%s_and_Iron_density_figure.png', brain, block, inflammatory_marker);
-            all_names = {mask_documentation.figures.name};
+            all_names = {mask_documentation.mask_documentation.name};
             index = find(ismember(all_names, mask_doc_name));
             
             % Get name of best mask
-            best_mask_name = mask_documentation.figures(index).mask;
+            best_mask_name = mask_documentation.mask_documentation(index).mask;
             
             % Make that mask the primary mask
             if strcmp(best_mask_name, 'Iron')
@@ -320,6 +320,16 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
             crucial_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
             save(crucial_variables_save_name, 'stat_iron', 'stat_inflammation', 'Spearman_coefficient', 'rotation', 'R_squared', 'Pearson_coefficient', 'original_iron', 'original_inflammation', 'linear_model', 'iron_tissue_mask', 'iron_heat_map', 'inflammation_heat_map');
 
+            % Save new version of mask documentation (only useful if manually edited)
+            %mask_doc_tmp = mask_documentation.mask_documentation;
+            %clear mask_documentation
+            
+            %mask_documentation = mask_doc_tmp;
+            %clear mask_doc_tmp
+            
+            %cd(directory.mask_documentation)
+            %save('primary_mask_documentation.mat', 'mask_documentation')
+            
         end
 
         % Reset for the next iteration of the loop
