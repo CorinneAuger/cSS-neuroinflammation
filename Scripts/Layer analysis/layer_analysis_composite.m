@@ -8,7 +8,7 @@ function [] = layer_analysis_composite(stain)
 %% Input directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
 directory.scripts = '/Users/corinneauger/Desktop/R graphs';
-directory.save = '/Users/corinneauger/Desktop/R graphs';
+directory.save = '/Users/corinneauger/Desktop/R graphs/Layer analysis';
 
 %% Import data
 cd(directory.input)
