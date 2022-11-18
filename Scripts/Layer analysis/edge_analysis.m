@@ -4,84 +4,56 @@ function [] = edge_analysis(brain, block, stain)
 % Sections analyzed one by one.
 
 %% Input brain, block, stain if not running in a loop (can comment these out if being looped)
-brain = 5;
-block = 7;
+brain = 1;
+block = 4;
 stain = 'CD68';
 
+% Inflammatory marker
+if strcmp(stain, 'CD68') || strcmp(stain, 'Iron')
+    inflammatory_marker = 'CD68';
+elseif strcmp(stain, 'GFAP')
+    inflammatory_marker = 'GFAP';
+end
+
 %% Input directories
-directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Density comparison';
+directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/All variables', inflammatory_marker);
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Layer analysis';
 directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um', stain);
 
-clearvars -except brain block stain q
+clearvars -except brain block stain q directory inflammatory_marker
 close all
 
 %% Load variables
 cd(directory.input)
+variables_file = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
 
-if strcmp(stain, 'GFAP') == 1
-    variables_file = sprintf('CAA%d_%d_%s_and_Iron_density_comparison_all_variables.mat', brain, block, 'GFAP');
-    load(variables_file, 'noncoregistered_inflammation_scatter');
-    heat_map = noncoregistered_inflammation_scatter;
-
-    load(variables_file, 'stat_inflammation');
-    density_map = stat_inflammation.density;
-
-    load(variables_file, 'original_inflammation')
-    unresized_original_image = original_inflammation;
-
-    load(variables_file, 'noncoreg_bw_inflammation');
-    tissue_mask = noncoreg_bw_inflammation;
-
-    load(variables_file, 'rotation');
-    rotation = rotation;
-
-elseif strcmp(stain, 'CD68') == 1
-    variables_file = sprintf('CAA%d_%d_%s_and_Iron_density_comparison_all_variables.mat', brain, block, stain);
-    load(variables_file, 'inflammation_heat_map');
+if strcmp(stain, 'GFAP') == 1 || strcmp(stain, 'CD68') == 1
+    % Load
+    load(variables_file, 'inflammation_heat_map', 'stat_inflammation', 'coregistered_inflammation', 'inflammation_tissue_mask');
+    
+    % Rename so variables are standardized
     heat_map = inflammation_heat_map;
-
-    load(variables_file, 'inflammation_tissue_mask');
+    density_map = stat_inflammation;
+    original_image = coregistered_inflammation;
     cortex_mask = inflammation_tissue_mask;
 
-    load(variables_file, 'stat_inflammation');
-    density_map = stat_inflammation.density;
-
-    load(variables_file, 'coregistered_inflammation')
-    unresized_original_image = coregistered_inflammation;
-
-    load(variables_file, 'rotation');
-    rotation = rotation;
-
-    cd '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Scripts'
-    [tissue_mask, ~] = extract_tissue(unresized_original_image, inflammation_tissue_mask, stain);
-    cd '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data'
 elseif strcmp(stain, 'Iron') == 1
-    variables_file = sprintf('CAA%d_%d_%s_and_Iron_density_comparison_all_variables.mat', brain, block, 'GFAP');
-
-    heat_map = load(variables_file, 'iron_heat_map');
-    heat_map = heat_map.iron_heat_map;
-
-    load(variables_file, 'iron_tissue_mask');
+    % Load
+    load(variables_file, 'iron_heat_map', 'stat_iron', 'original_iron', 'iron_tissue_mask');
+    
+    % Rename so variables are standardized
+    heat_map = iron_heat_map;
+    density_map = stat_iron;
+    original_image = original_iron;
     cortex_mask = iron_tissue_mask;
-
-    load(variables_file, 'stat_iron');
-    density_map = stat_iron.density;
-
-    load(variables_file, 'bw_iron');
-    tissue_mask = bw_iron;
-
-    rotation = 0;
-
-    load(variables_file, 'original_iron')
-    unresized_original_image = original_iron;
+    
 end
 
-original_image = imresize(unresized_original_image, size(tissue_mask));
+% Generate tissue mask
+original_image = imresize(original_image, size(cortex_mask));
 
-%if rotation == 1
-    %tissue_mask = imrotate(tissue_mask, 180);
-%end
+cd(directory.scripts)
+[tissue_mask, ~] = extract_tissue(original_image, cortex_mask, stain);
 
 %% Check iron quantity
 
@@ -102,6 +74,52 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
 %object_quantity = sum(sum(interval_plot));
 
 %if object_quantity >=  5
+
+%% EXPERIMENTAL
+% Make opposite tissue mask
+[x, y, ~] = size(original_image);
+opposite_tissue_mask = logical(1 - tissue_mask(:,:,1));
+
+% Make overlaid figure to help with drawing
+drawing_figure = figure;
+imshowpair(original_image, opposite_tissue_mask(:,:,1))
+drawing_figure.Position = [412 165 775 626];
+
+% Ask whether to draw
+another_correction = input('Draw an ROI?   If no, reply 0; if yes, reply 1    ');
+
+while another_correction == 1
+    % Draw correction
+    correction = impoly;
+    correction_mask = createMask(correction);
+    
+    % Ask about color
+    black_or_white = input('If black, reply 0; if white, reply 1.      ');
+    
+    % Change opposite tissue mask
+    for i = 1:x
+        for j = 1:y
+            if correction_mask(x,y)
+                if black_or_white == 0
+                    opposite_tissue_mask(i,j) = 0;
+                elseif black_or_white == 1
+                    opposite_tissue_mask(i,j) = 0;
+                end
+            end
+        end
+    end
+    
+    % Keep the while loop going
+    another_correction = input('Draw an ROI?   If no, reply 0; if yes, reply 1    ');
+    
+    % Make new overlaid figure to help with drawing
+    close
+    drawing_figure = figure;
+    imshowpair(original_image, opposite_tissue_mask(:,:,1))
+    drawing_figure.Position = [412 165 775 626];
+    
+    clear correction correction_mask
+end
 
     %% Create tissue mask
 
@@ -178,11 +196,11 @@ original_image = imresize(unresized_original_image, size(tissue_mask));
     % Get size of one MATLAB pixel in um
     layer_size_microns = 1000;
     if strcmp(stain, 'CD68') == 1
-        pixel_size = 6.3964;
+        microns_per_pixel = 6.3964;
     elseif strcmp(stain, 'GFAP') == 1
-        pixel_size = 6.600806;
+        microns_per_pixel = 6.600806;
     elseif strcmp(stain, 'Iron') == 1
-        pixel_size = 6.603822;
+        microns_per_pixel = 6.603822;
     end
 
     % Set dilation amount
