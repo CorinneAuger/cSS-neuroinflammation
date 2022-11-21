@@ -4,14 +4,9 @@
 %% User input
 stain = 'Iron';
 
-%% Input directories
+%% Input one directory needed so far
+% Have to do it again below
 directory.variables = sprintf('/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/%s 1000um', stain);
-directory.GFAP_heat_map = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/GFAP/Crucial variables';
-directory.CD68_heat_map = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/CD68/Crucial variables';
-directory.save_line_plot = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Density line plot figures', stain);
-directory.save_cortex_figure = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Cortex figures', stain);
-directory.save_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Variables', stain);
-directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Layer analysis';
 
 %% Constant for the whole loop
 one_iron_pixel_in_sq_microns = 6.603822^2;
@@ -26,6 +21,15 @@ for brain = 1:25
         
         if isfile(variables_file_name)
             load(variables_file_name);
+            
+            %% Input directories
+            directory.variables = sprintf('/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/%s 1000um', stain);
+            directory.GFAP_heat_map = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/GFAP/Crucial variables';
+            directory.CD68_heat_map = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/CD68/Crucial variables';
+            directory.save_line_plot = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Density line plot figures', stain);
+            directory.save_cortex_figure = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Cortex figures', stain);
+            directory.save_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Variables', stain);
+            directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Layer analysis';
             
             %% Load heat map
             clear heat_map
@@ -80,6 +84,7 @@ for brain = 1:25
         
         % Preallocate
         heat_map_layers = NaN(x,y,number_of_layers);
+        uncorrected_heat_map_layers = NaN(x,y,number_of_layers);
         layer_densities = NaN(number_of_layers);
         layer_too_small = NaN(1, number_of_layers);
         
@@ -88,6 +93,7 @@ for brain = 1:25
             
             % Replicate the heat map
             heat_map_layers(:,:,k) = heat_map;
+            uncorrected_heat_map_layers(:,:,k) = heat_map;
             
             % Make everything not in the layer a NaN
             for l = 1:x
@@ -95,6 +101,11 @@ for brain = 1:25
                     if layer_masks(l,m,k) == 0
                         heat_map_layers(l,m,k) = NaN;
                     end
+                    
+                    if layer_masks(l,m,k) == 0 || opposite_tissue_mask(l,m) == 0
+                        uncorrected_heat_map_layers(l,m,k) = NaN;
+                    end
+                    
                 end
             end
             
@@ -102,11 +113,11 @@ for brain = 1:25
             objects_in_layer = nansum(nansum(heat_map_layers(:,:,k)));
             
             %% Calculate denominator for layer density
-            pixels_in_layer = sum(sum(~isnan(heat_map_layers(:,:,k))));
-            microns_in_layer = pixels_in_layer * one_iron_pixel_in_sq_microns;
+            pixels_in_uncorrected_layer = sum(sum(~isnan(uncorrected_heat_map_layers(:,:,k))));
+            microns_in_layer = pixels_in_uncorrected_layer * one_iron_pixel_in_sq_microns;
             
             %% Calculate layer density
-            layer_densities(k) = objects_in_layer/pixels_in_layer;
+            layer_densities(k) = objects_in_layer/microns_in_layer;
             
             clear objects_in_layer pixels_in_layer microns_in_layer
         end
