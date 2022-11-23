@@ -19,13 +19,14 @@ for i = 1:2
 
     cd(directory.scripts)
 
-    if i == 1
-        brains_matrix = [1:3, 5, 7:9, 15, 17:18, 21:24];
-    elseif i == 2
+    if i == 1 %CD68
+        brains_matrix = [1:3, 5, 7:9, 15, 17:18, 22:24];
+    elseif i == 2 %GFAP
         brains_matrix = [1:3, 5, 7:9, 13, 14, 17:18, 21:24];
     end
 
     for brain = brains_matrix
+        cd(directory.scripts)
         [edge_only_means, no_edge_means] = outer_layer_iron_intervals(brain, inflammatory_marker);
         all_edge_only_means(brain, 1:4) = edge_only_means;
         all_no_edge_means(brain, 1:4) = no_edge_means;
