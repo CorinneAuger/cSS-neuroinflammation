@@ -16,6 +16,7 @@ layer_densities_all_brains = NaN(26, 5);
 
 % Load data
 cd(directory.input)
+
 for brain = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
     
     % Preallocate for one brain only
@@ -24,7 +25,14 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
     % Fill in densities for each block
     for block = [1, 4, 5, 7]
         file_name = sprintf('CAA%d_%d_%s_edge_analysis_variables.mat', brain, block, stain);
-        block_densities(block, :) = load(file_name, 'layer_densities');
+        cd(directory.input)
+        
+        % Allow missing data
+        if isfile(file_name)
+            layer_densities_struct = load(file_name, 'layer_densities');
+            block_densities(block, :) = layer_densities_struct.layer_densities;
+            clear layer_densities_struct
+        end
     end
     
     % Get mean layer densities for brain
@@ -76,7 +84,14 @@ set(gca, 'YTickLabel', b, 'fontsize', 15, 'fontweight', 'bold')
 
 % Axis labels
 xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
-ylabel('Mean density (%)', 'FontSize', 20, 'FontWeight', 'bold');
+
+if strcmp(stain, 'Iron')
+    ylabel('Mean iron deposits per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+elseif strcmp(stain, 'GFAP')
+    ylabel('Mean GFAP-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+elseif strcmp(stain, 'CD68')
+    ylabel('Mean CD68-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+end
 
 % Title
 title(sprintf('%s: all brains', stain), 'FontSize', 25)
