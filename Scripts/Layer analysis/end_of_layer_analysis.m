@@ -2,7 +2,8 @@
 % Use after edge_analysis.m to convert from object densities to object counts.
 
 %% User input
-stain = 'Iron';
+stain = 'CD68';
+make_cortex_figure = 0; % toggle on if want to run on loop for cortex figure checking
 
 %% Input one directory needed so far
 % Have to do it again below
@@ -43,7 +44,7 @@ for brain = 1:25
                     tmp = load(heat_map_file_name_CD68, 'iron_heat_map');
                     heat_map = tmp.iron_heat_map;
                     
-                %Try to load from GFAP data if CD68 didn't work
+                    %Try to load from GFAP data if CD68 didn't work
                 else
                     cd(directory.GFAP_heat_map)
                     heat_map_file_name_GFAP = sprintf('CAA%d_%d_GFAP_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block);
@@ -82,11 +83,15 @@ for brain = 1:25
         clear x y heat_map_layers layer_densities layer_too_small k l m
         [x, y] = size(heat_map);
         
+        % Set maximum number of layers to 5
+        if number_of_layers > 5
+            number_of_layers = 5;
+        end
+        
         % Preallocate
         heat_map_layers = NaN(x,y,number_of_layers);
         uncorrected_heat_map_layers = NaN(x,y,number_of_layers);
-        layer_densities = NaN(number_of_layers);
-        layer_too_small = NaN(1, number_of_layers);
+        layer_densities = NaN(1, number_of_layers);
         
         %% Apply masks to heat map
         for k = 1:number_of_layers
@@ -102,7 +107,7 @@ for brain = 1:25
                         heat_map_layers(l,m,k) = NaN;
                     end
                     
-                    if layer_masks(l,m,k) == 0 || opposite_tissue_mask(l,m) == 0
+                    if layer_masks(l,m,k) == 0 || opposite_tissue_mask(l,m) == 1
                         uncorrected_heat_map_layers(l,m,k) = NaN;
                     end
                     
@@ -140,7 +145,7 @@ for brain = 1:25
         end
         
         % X axis
-        xlim([0,number_of_layers]);
+        xlim([0, (number_of_layers + 1)]);
         set(gca,'xticklabel',[])
         set(gca,'XTick',[])
         
@@ -150,7 +155,14 @@ for brain = 1:25
         
         % Axis labels
         xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
-        ylabel('Iron density (%)', 'FontSize', 20, 'FontWeight', 'bold');
+        
+        if strcmp(stain, 'Iron')
+            ylabel('Iron deposits per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+        elseif strcmp(stain, 'GFAP')
+            ylabel('GFAP-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+        elseif strcmp(stain, 'CD68')
+            ylabel('CD68-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+        end
         
         % Title
         title('Example section', 'FontSize', 25)
@@ -167,32 +179,36 @@ for brain = 1:25
         close all
         
         %% Make cortex figure
-        % Set up for colors
-        double_tissue_mask = double(tissue_mask);
-        rainbow_figure = cat(3, double_tissue_mask, double_tissue_mask, double_tissue_mask);
         
-        % Add colors
-        for k = 1:number_of_layers
-            for l = 1:x
-                for m = 1:y
-                    if layer_masks(l,m,k) == 1
-                        rainbow_figure(l,m,:) = color((number_of_layers + 1)-k,:);
+        if make_cortex_figure 
+            % Set up for colors
+            color = jet(number_of_layers);
+            double_tissue_mask = double(tissue_mask);
+            rainbow_figure = cat(3, double_tissue_mask, double_tissue_mask, double_tissue_mask);
+
+            % Add colors
+            for k = 1:number_of_layers
+                for l = 1:x
+                    for m = 1:y
+                        if layer_masks(l,m,k) == 1
+                            rainbow_figure(l,m,:) = color((number_of_layers + 1)-k,:);
+                        end
                     end
                 end
             end
+
+            % Display figure
+            figure;
+            imshow(rainbow_figure)
+
+            % Save
+            cd(directory.save_cortex_figure)
+
+            cortex_figure_save_name = sprintf('CAA%d_%d_%s_cortex_figure.png', brain, block, stain);
+            saveas(gcf, cortex_figure_save_name);
         end
         
-        % Display figure
-        figure;
-        imshow(rainbow_figure)
         
-        % Save
-        cd(directory.save_cortex_figure)
-        
-        cortex_figure_save_name = sprintf('CAA%d_%d_%s_cortex_figure.png', brain, block, stain);
-        saveas(gcf, cortex_figure_save_name);
-        close all
-       
         %% Save variables
         cd(directory.save_variables)
         all_variables_save_name = sprintf('CAA%d_%d_%s_edge_analysis_variables.mat', brain, block, stain);
