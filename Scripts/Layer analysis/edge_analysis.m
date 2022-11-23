@@ -5,10 +5,11 @@ function [] = edge_analysis(brain, block, stain)
 % Have to run end_of_layer_analysis after to modernize. It runs on the whole batch.
 
 %% Input brain, block, stain if not running in a loop (can comment these out if being looped)
-%brain = 2;
-%block = 4;
-%stain = 'Iron';
+brain = 1;
+block = 4;
+stain = 'CD68';
 
+close all
 clearvars -except  brain block stain
 
 % Inflammatory marker
@@ -63,7 +64,7 @@ cd(directory.scripts)
 %% Check iron quantity
 iron_objects = nansum(nansum(stat_iron));
 
-if iron_objects > 400
+%if iron_objects > 400
     
     %% Correct automatically generated tissue mask
     % Make opposite tissue mask
@@ -196,6 +197,7 @@ if iron_objects > 400
     
     %% Make cortex figure
     % Set up for colors
+    color = jet(number_of_layers);
     double_tissue_mask = double(tissue_mask);
     rainbow_figure = cat(3, double_tissue_mask, double_tissue_mask, double_tissue_mask);
     
@@ -219,13 +221,12 @@ if iron_objects > 400
     
     cortex_figure_save_name = sprintf('CAA%d_%d_%s_cortex_figure.png', brain, block, stain);
     saveas(gcf, cortex_figure_save_name);
-    close all
     
-else
+%else
     %% If below iron threshold
-    fprintf 'Not enough iron!';
+    %fprintf 'Not enough iron!';
     
-    close all
-    cd(directory.scripts)
+    %close all
+    %cd(directory.scripts)
     
-end
+%end
