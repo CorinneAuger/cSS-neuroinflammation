@@ -5,15 +5,31 @@
 
 function [] = layer_analysis_composite(stain)
 
-%% Input directories
-directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Edge analysis/Final edge composite data';
-directory.scripts = '/Users/corinneauger/Desktop/R graphs';
-directory.save = '/Users/corinneauger/Desktop/R graphs/Layer analysis';
+%% Input directories 
+directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Variables', stain);
+directory.save_plots = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Composite data/Plots';
+directory.save_variables = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Composite data/Variables';
 
-%% Import data
+%% Build layer_densities_all_brains matrix
+% Preallocate for all brains
+layer_densities_all_brains = NaN(26, 5);
+
+% Load data
 cd(directory.input)
-load(sprintf('Variables_all_brains_1000um_%s_edge_analysis', stain));
-close all
+for brain = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
+    
+    % Preallocate for one brain only
+    block_densities = NaN(7, 5);
+    
+    % Fill in densities for each block
+    for block = [1, 4, 5, 7]
+        file_name = sprintf('CAA%d_%d_%s_edge_analysis_variables.mat', brain, block, stain);
+        block_densities(block, :) = load(file_name, 'layer_densities');
+    end
+    
+    % Get mean layer densities for brain
+    layer_densities_all_brains(brain, :) = nanmean(block_densities);
+end
 
 %% Set up color palettes
 % Get dark color palette using color_darken.py
@@ -29,7 +45,7 @@ elseif strcmp(stain, 'CD68')
 end
 
 %% Get percentiles
-percentiles = prctile(layer_densities_all_brains(:, 1:5), [25, 50, 75]);
+percentiles = prctile(layer_densities_all_brains, [25, 50, 75]);
 
 %% Make figure with points
 for column_number = 1:5
@@ -71,7 +87,7 @@ ax = gca;
 ax.LineWidth = 1;
 
 %% Save
-cd(directory.save)
+cd(directory.save_plots)
 saveas(gcf, sprintf('%s_layer_graph.png', stain))
 
 end
