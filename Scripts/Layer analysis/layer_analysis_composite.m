@@ -86,11 +86,11 @@ set(gca, 'YTickLabel', b, 'fontsize', 15, 'fontweight', 'bold')
 xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
 
 if strcmp(stain, 'Iron')
-    ylabel('Mean iron deposits per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+    ylabel('Mean iron deposits/?m^2', 'FontSize', 20, 'FontWeight', 'bold');
 elseif strcmp(stain, 'GFAP')
-    ylabel('Mean GFAP-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+    ylabel('Mean GFAP-positive cells/?m^2', 'FontSize', 20, 'FontWeight', 'bold');
 elseif strcmp(stain, 'CD68')
-    ylabel('Mean CD68-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+    ylabel('Mean CD68-positive cells/?m^2', 'FontSize', 20, 'FontWeight', 'bold');
 end
 
 % Title
