@@ -2,7 +2,7 @@
 % Use after edge_analysis.m to convert from object densities to object counts.
 
 %% User input
-stain = 'CD68';
+stain = 'GFAP';
 make_cortex_figure = 0; % toggle on if want to run on loop for cortex figure checking
 
 %% Input one directory needed so far
@@ -103,10 +103,10 @@ for brain = 1:25
             % Make everything not in the layer a NaN
             for l = 1:x
                 for m = 1:y
-                    if layer_masks(l,m,k) == 0
+                    if layer_masks(l,m,k) == 0 || cortex_mask(l,m) == 0
                         heat_map_layers(l,m,k) = NaN;
                     end
-                    
+                   
                     if layer_masks(l,m,k) == 0 || opposite_tissue_mask(l,m) == 1
                         uncorrected_heat_map_layers(l,m,k) = NaN;
                     end
