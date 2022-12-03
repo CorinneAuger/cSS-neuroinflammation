@@ -4,7 +4,9 @@
 clear
 close all
 
-for k = 1:2
+columns = 4;
+
+for k = 1
     if k == 1
         inflammatory_marker = 'GFAP';
     elseif k == 2
@@ -12,7 +14,7 @@ for k = 1:2
     end
     
     %% Input directories
-    directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel ring weight analysis/%s (1-tailed)/4 column/By section', inflammatory_marker);
+    directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel ring weight analysis/%s (1-tailed)/%d column/By section', inflammatory_marker, columns);
     directory.save_by_section = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel ring weight analysis/R^2 analysis/%s/By section', inflammatory_marker);
     directory.save_composite = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel ring weight analysis/R^2 analysis/%s/Composite', inflammatory_marker);
     
@@ -23,7 +25,7 @@ for k = 1:2
         for block = 1:7
             %% Import ring weight output
             cd(directory.input)
-            variables_file_name = sprintf('CAA%d__%d_%s_and_Iron_best_weights.mat', brain, block, inflammatory_marker);
+            variables_file_name = sprintf('CAA%d__%d_%s_and_Iron_best_weights_%d_column.mat', brain, block, inflammatory_marker, columns);
             
             if isfile(variables_file_name)
                 load(variables_file_name, 'stat_inflammation');
@@ -138,7 +140,7 @@ for k = 1:2
                 saveas(gcf, section_figure_save_name)
                 
                 %% Reset loop for next iteration
-                clearvars -except k inflammatory_marker directory R2_matrix brain block
+                clearvars -except columns k inflammatory_marker directory R2_matrix brain block
                 close all
                 
             end
@@ -172,4 +174,3 @@ for k = 1:2
     composite_figure_save_name = sprintf('%s all R^2 values figure.png', inflammatory_marker);
     saveas(gcf, composite_figure_save_name)
 end
-
