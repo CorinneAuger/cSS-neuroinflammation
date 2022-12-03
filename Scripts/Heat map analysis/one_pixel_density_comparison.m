@@ -2,7 +2,7 @@
 % Use after density_comparison to work in accurate object counts rather than densities that underestimate the number of objects in dense areas.
 
 %% User inputs
-inflammatory_marker = 'CD68';
+inflammatory_marker = 'GFAP';
 
 % Try toggling on (replace 0 with 1) if the first try gave a bad mask
 different_mask_thresholding = 0;
@@ -318,7 +318,7 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
             % Save file of crucial variables
             cd(directory.save_crucial_variables)
             crucial_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
-            save(crucial_variables_save_name, 'stat_iron', 'stat_inflammation', 'Spearman_coefficient', 'rotation', 'R_squared', 'Pearson_coefficient', 'original_iron', 'original_inflammation', 'linear_model', 'iron_tissue_mask', 'iron_heat_map', 'inflammation_heat_map');
+            save(crucial_variables_save_name, 'stat_iron', 'stat_inflammation', 'rotation', 'original_iron', 'original_inflammation', 'iron_tissue_mask', 'iron_heat_map', 'inflammation_heat_map');
 
             % Save new version of mask documentation (only useful if manually edited)
             %mask_doc_tmp = mask_documentation.mask_documentation;
