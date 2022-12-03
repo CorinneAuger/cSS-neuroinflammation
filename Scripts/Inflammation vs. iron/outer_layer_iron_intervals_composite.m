@@ -19,11 +19,7 @@ for i = 1:2
 
     cd(directory.scripts)
 
-    if i == 1 %CD68
-        brains_matrix = [1:3, 5, 7:9, 15, 17:18, 22:24];
-    elseif i == 2 %GFAP
-        brains_matrix = [1:3, 5, 7:9, 13, 14, 17:18, 21:24];
-    end
+    brains_matrix = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25];
 
     for brain = brains_matrix
         cd(directory.scripts)
