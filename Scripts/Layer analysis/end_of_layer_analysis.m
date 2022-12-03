@@ -2,7 +2,7 @@
 % Use after edge_analysis.m to convert from object densities to object counts.
 
 %% User input
-stain = 'GFAP';
+stain = 'Iron';
 make_cortex_figure = 0; % toggle on if want to run on loop for cortex figure checking
 
 %% Input one directory needed so far
@@ -13,7 +13,7 @@ directory.variables = sprintf('/Users/corinneauger/Documents/Aiforia heatmap cor
 one_iron_pixel_in_sq_microns = 6.603822^2;
 
 %% Start loop for all sections
-for brain = 1:25
+for brain = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
     for block = [1 4 5 7]
         
         %% Load edge variables
@@ -94,7 +94,7 @@ for brain = 1:25
         layer_densities = NaN(1, number_of_layers);
         
         %% Apply masks to heat map
-        for k = 1:number_of_layers
+        for k = 1:5
             
             % Replicate the heat map
             heat_map_layers(:,:,k) = heat_map;

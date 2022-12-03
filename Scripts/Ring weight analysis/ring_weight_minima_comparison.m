@@ -15,16 +15,14 @@ directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel r
 
 %% Load files
 cd(directory.GFAP_input)
-load('GFAP_and_Iron_1pixel_ring_weight_analysis_variables.mat', 'minima_all_blocks')
+load('GFAP_and_Iron_1pixel_4_column_ring_weight_analysis_variables.mat', 'minima_all_blocks')
 GFAP_minima = squeeze(minima_all_blocks(1, :, :));
 clear minima_all_blocks
-GFAP_minima(:, 27:104) = [];
 
 cd(directory.CD68_input)
-load('CD68_and_Iron_1pixel_ring_weight_analysis_variables.mat', 'minima_all_blocks')
+load('CD68_and_Iron_1pixel_4_column_ring_weight_analysis_variables.mat', 'minima_all_blocks')
 CD68_minima = squeeze(minima_all_blocks(1, :, :));
 clear minima_all_blocks
-CD68_minima(:, 27:104) = [];
 
 %% Calculate effect size
 reshaped_GFAP = reshape(GFAP_minima, [104,1]);

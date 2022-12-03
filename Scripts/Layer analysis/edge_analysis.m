@@ -5,7 +5,7 @@ function [] = edge_analysis(brain, block, stain)
 % Have to run end_of_layer_analysis after to modernize. It runs on the whole batch.
 
 %% Input brain, block, stain if not running in a loop (can comment these out if being looped)
-brain = 5;
+brain = 3;
 block = 1;
 stain = 'Iron';
 
