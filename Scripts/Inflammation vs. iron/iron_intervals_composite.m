@@ -1,7 +1,7 @@
 %% Iron intervals composite
 % Makes final matrix and graph of iron vs. inflammation data. 
 
-inflammatory_marker = 'CD68';
+inflammatory_marker = 'GFAP';
 
 %% Define directories
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
