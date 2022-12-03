@@ -102,7 +102,14 @@ ax = gca;
 ax.LineWidth = 1;
 
 %% Save
+% Save plot
 cd(directory.save_plots)
 saveas(gcf, sprintf('%s_layer_graph.png', stain))
+
+% Save matrix
+matrix_save_name = sprintf('%s_layer_densities_all_brains.mat', stain);
+
+cd(directory.save_variables)
+save(matrix_save_name, 'layer_densities_all_brains');
 
 end
