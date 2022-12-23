@@ -29,7 +29,7 @@ for block = [1, 4, 5, 7]
             load(edge_mask_file_name, 'layer_masks')
 
             %% Apply edge mask
-            [size_x, size_y, number_of_layers] = size(layer_masks);
+            [size_x, size_y, ~] = size(layer_masks);
 
             % Preallocate
             edge_only_iron_scatter = iron_heat_map;
@@ -161,6 +161,7 @@ for block = [1, 4, 5, 7]
                             end
                         end
                     end
+                    
                 elseif patch_size_microns == 250
                     for i = 1:density_x
                         for j = 1:density_y
