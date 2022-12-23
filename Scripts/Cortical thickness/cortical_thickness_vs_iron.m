@@ -6,12 +6,10 @@
 %% Input directories
 directory.IA_details = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/IA details';
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
-directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Cortical thickness'
+directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Cortical thickness';
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Cortical thickness';
 
 %% By brain
-
-clear
 close all
 
 cd(directory.IA_details)
@@ -28,13 +26,17 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
         block_str = num2str(block);
         Aiforia_details_sheet_name = join(['IA_details__CAA', brain_str, '_', block_str, '_Iron.xlsx']);
 
-        Aiforia_details_table = readtable(Aiforia_details_sheet_name);
-        Aiforia_details_matrix = Aiforia_details_table{:,22};
+        if isfile(Aiforia_details_sheet_name)
+            Aiforia_details_table = readtable(Aiforia_details_sheet_name);
+            Aiforia_details_matrix = Aiforia_details_table{:,22};
 
-        object_centers_x = Aiforia_details_matrix(~isnan(Aiforia_details_matrix));
-        [block_iron_objects, ~] = size(object_centers_x);
+            object_centers_x = Aiforia_details_matrix(~isnan(Aiforia_details_matrix));
+            [block_iron_objects, ~] = size(object_centers_x);
 
-        brain_iron_objects(brain) = brain_iron_objects(brain) + block_iron_objects;
+            brain_iron_objects(brain) = brain_iron_objects(brain) + block_iron_objects;
+        else 
+            continue
+        end
     end
 end
 
@@ -62,6 +64,7 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
 
         cortical_thickness_for_block(block) = cortical_thickness_matrix(place_in_list);
     end
+    
     cortical_thickness_for_brain(brain) = nanmean(cortical_thickness_for_block);
     clear cortical_thickness_for_block
 end
@@ -84,8 +87,6 @@ save('Cortical_thickness_vs_Iron_by_brain_variables.mat');
 saveas(gcf, 'Cortical_thickness_vs_Iron_by_brain_figure.png');
 
 %% By section
-
-clear
 close all
 
 cd(directory.IA_details)
@@ -102,13 +103,17 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
         block_str = num2str(block);
         Aiforia_details_sheet_name = join(['IA_details__CAA', brain_str, '_', block_str, '_Iron.xlsx']);
 
-        Aiforia_details_table = readtable(Aiforia_details_sheet_name);
-        Aiforia_details_matrix = Aiforia_details_table{:,22};
+        if isfile(Aiforia_details_sheet_name)
+            Aiforia_details_table = readtable(Aiforia_details_sheet_name);
+            Aiforia_details_matrix = Aiforia_details_table{:,22};
 
-        object_centers_x = Aiforia_details_matrix(~isnan(Aiforia_details_matrix));
-        [block_iron_objects, ~] = size(object_centers_x);
+            object_centers_x = Aiforia_details_matrix(~isnan(Aiforia_details_matrix));
+            [block_iron_objects, ~] = size(object_centers_x);
 
-        weird_format_all_iron_objects(brain, block) = block_iron_objects;
+            weird_format_all_iron_objects(brain, block) = block_iron_objects;
+        else
+            continue
+        end
     end
 end
 
