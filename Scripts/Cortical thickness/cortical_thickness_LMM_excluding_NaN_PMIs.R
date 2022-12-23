@@ -18,7 +18,7 @@ library(influence.ME)
 rm(list = ls())
 
 #Define data (can change)
-no_NaN_data_csv = read.csv(file = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/CSV files for stats/No PMI NaNs/cortical_thickness_data_without_PMI_NaNs.csv')
+no_NaN_data_csv = read.csv(file = '/Volumes/Corinne hard drive/cSS project/Saved data/Cortical thickness/cortical_thickness_data_without_PMI_NaNs.csv')
 
 
 #Model before testing assumptions
