@@ -1,6 +1,9 @@
 %% Outer layer iron intervals composite
 % Makes final matrix and graph of iron vs. inflammation data, only looking at the outermost 1000um.
 
+%% Toggle: 0 to use data already generated. 1 to run outer_layer_iron_interval on everything.
+new_data = 0;
+
 %% Make loop to do 2 stains at once
 for i = 1:2
     if i == 1
@@ -11,9 +14,10 @@ for i = 1:2
 
     %% Define directories
     directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
-    directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/Composite', inflammatory_marker);
+    directory.data_by_brain = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel outer and inner layer interval analysis/%s/Means', inflammatory_marker);
+    directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel outer and inner layer interval analysis/%s/Composite', inflammatory_marker);
 
-    %% Run iron intervals script
+    %% Run iron intervals script or load data 
     all_edge_only_means = NaN(26,4);
     all_no_edge_means = NaN(26,4);
 
@@ -22,10 +26,26 @@ for i = 1:2
     brains_matrix = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25];
 
     for brain = brains_matrix
-        cd(directory.scripts)
-        [edge_only_means, no_edge_means] = outer_layer_iron_intervals(brain, inflammatory_marker);
-        all_edge_only_means(brain, 1:4) = edge_only_means;
-        all_no_edge_means(brain, 1:4) = no_edge_means;
+        % Toggle for if iron intervals script is needed or not
+        if new_data == 0
+            cd(directory.data_by_brain)
+            
+            % Load edge only means
+            load(sprintf('CAA%d__%s_1pixel_outer_1000um_interval_means.mat', brain, inflammatory_marker));
+            all_edge_only_means(brain, 1:4) = means;
+            clear means
+            
+            % Load no edge means
+            load(sprintf('CAA%d__%s_1pixel_no_edge_interval_means.mat', brain, inflammatory_marker));
+            all_no_edge_means(brain, 1:4) = means;
+            clear means
+            
+        elseif new_data == 1
+            cd(directory.scripts)
+            [edge_only_means, no_edge_means] = outer_layer_iron_intervals(brain, inflammatory_marker);
+            all_edge_only_means(brain, 1:4) = edge_only_means;
+            all_no_edge_means(brain, 1:4) = no_edge_means;
+        end
     end
 
     close all
