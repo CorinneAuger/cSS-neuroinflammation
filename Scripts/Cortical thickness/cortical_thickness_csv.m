@@ -12,15 +12,15 @@ number_of_lobes = 7;
 %% Enter directories
 directory.input = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Cortical thickness vs. iron';
 directory.spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
-directory.save = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/CSV files for stats';
+directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Cortical thickness';
 
 %% Make thickness column
-cd(input_directory);
+cd(directory.input);
 load('Cortical_thickness_vs_Iron_by_section_variables.mat', 'all_cortical_thickness');
 cortical_thickness_column = all_cortical_thickness';
 
 %% Make iron column
-cd(input_directory)
+cd(directory.input)
 load('Cortical_thickness_vs_Iron_by_section_variables.mat', 'all_iron_objects');
 iron_column = all_iron_objects';
 
@@ -55,7 +55,7 @@ age_column = NaN(length,1);
 sex_column = NaN(length,1);
 PMI_column = NaN(length,1);
 
-cd(spreadsheet_directory)
+cd(directory.spreadsheets)
 case_info_table = readtable('Case_info_03012022.xlsx');
 
 for i = 1:length
@@ -82,11 +82,34 @@ for i = length:-1:1
     end
 end
 
+[sections, ~] = size(final_matrix);
+
+for j = sections:-1:1
+    if isnan(final_matrix(j,3)) == 1
+        final_matrix(j,:) = [];
+    end
+end
+
+%% Delete ICH sections
+[sections, ~] = size(final_matrix);
+
+for i = sections:-1:1
+    if final_matrix(i,4) == 5 && final_matrix(i, 5) == 2
+        final_matrix(i, :) = [];
+    elseif final_matrix(i,4) == 5 && final_matrix(i, 5) == 4
+        final_matrix(i, :) = [];
+    elseif final_matrix(i,4) == 8 && final_matrix(i, 5) == 2
+        final_matrix(i, :) = [];
+    elseif final_matrix(i,4) == 21 && final_matrix(i, 5) == 2
+        final_matrix(i, :) = [];
+    end
+end
+    
 %% Make table
 final_table = array2table(final_matrix, 'VariableNames', {'Age_at_death', 'Sex_0_male_1_female', 'PMI', 'Brain', 'Lobe', 'Iron', 'Cortical_thickness'});
 
 %% Save csv file
-cd(save_directory)
-writetable(final_table, 'cortical_thickness_data.csv');
+cd(directory.save)
+writetable(final_table, 'cortical_thickness_data_without_PMI_NaNs.csv');
 
 end
