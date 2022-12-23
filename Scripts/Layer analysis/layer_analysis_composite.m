@@ -5,6 +5,8 @@
 
 function [] = layer_analysis_composite(stain)
 
+close all
+
 %% Input directories 
 directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Variables', stain);
 directory.save_plots = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Composite data/Plots';
