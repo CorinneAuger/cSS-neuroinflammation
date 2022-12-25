@@ -1,8 +1,10 @@
 %% Ring weight estimated map figures
 % Generates predicted inflammation heat maps based on iron ones.
-% To be used in figure for paper.
+% To be used in ring weight figure for paper.
 
 %% Manual input
+clear
+
 inflammatory_marker = 'GFAP';
 patch_size_microns = 500;
 
@@ -24,10 +26,10 @@ for brain = 1:25
             load(variables_file_name, 'best_weights', 'density_map_x', 'density_map_y', 'predicted_pixel_value', 'predicted_first_ring_value', 'predicted_second_ring_value', 'predicted_third_ring_value')
             best_weights = best_weights(1, :);
             
-            % Load real heat map
+            % Load real heat maps
             cd(directory.density_map)
             density_map_file_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
-            load(density_map_file_name, 'stat_inflammation');
+            load(density_map_file_name, 'stat_iron', 'stat_inflammation');
             
             %% Make map
             %Preallocate
@@ -54,15 +56,22 @@ for brain = 1:25
             figure
             set(gcf, 'position', [1 1 1440 615])
             
-            % Set up estimated figure
-            subplot(2,1,1)
+            % Set up real iron figure
+            subplot(3,1,1)
+            imshow(stat_iron(:,:), [0, scale_bar_upper_limit]);
+            title(sprintf('CAA%d__%d_real_iron', brain, block));
+            colormap(gca, jet);
+            colorbar;
+            
+            % Set up estimated inflammation figure
+            subplot(3,1,2)
             imshow(predicted_heat_map(:,:), [0, scale_bar_upper_limit]);
             title(sprintf('CAA%d__%d_estimated_%s', brain, block, inflammatory_marker));
             colormap(gca, jet);
             colorbar;
             
-            % Set up real figure
-            subplot(2,1,2)
+            % Set up real inflammation figure
+            subplot(3,1,3)
             imshow(stat_inflammation(:,:), [0, scale_bar_upper_limit]);
             title(sprintf('CAA%d__%d_real_%s', brain, block, inflammatory_marker));
             colormap(gca, jet);
