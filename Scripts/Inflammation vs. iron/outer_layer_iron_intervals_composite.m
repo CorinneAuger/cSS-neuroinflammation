@@ -23,7 +23,7 @@ for i = 1:2
 
     cd(directory.scripts)
 
-    brains_matrix = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25];
+    brains_matrix = [1:3, 5 7:9, 11, 13:15, 17, 18, 20:25];
 
     for brain = brains_matrix
         % Toggle for if iron intervals script is needed or not
@@ -32,13 +32,13 @@ for i = 1:2
             
             % Load edge only means
             load(sprintf('CAA%d__%s_1pixel_outer_1000um_interval_means.mat', brain, inflammatory_marker));
-            all_edge_only_means(brain, 1:4) = means;
-            clear means
+            all_edge_only_means(brain, 1:4) = edge_only_means;
+            clear edge_only_means
             
             % Load no edge means
             load(sprintf('CAA%d__%s_1pixel_no_edge_interval_means.mat', brain, inflammatory_marker));
-            all_no_edge_means(brain, 1:4) = means;
-            clear means
+            all_no_edge_means(brain, 1:4) = no_edge_means;
+            clear no_edge_means
             
         elseif new_data == 1
             cd(directory.scripts)
