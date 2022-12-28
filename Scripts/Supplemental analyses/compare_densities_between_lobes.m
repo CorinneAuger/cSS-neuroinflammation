@@ -3,7 +3,7 @@ function compare_densities_between_lobes(stain)
 % Used supplementally to show that brain region is not an important factor in determining the density of any of our markers.
 
 %% Define directories
-directory.spreadsheet = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
+directory.spreadsheet = '/Volumes/Corinne hard drive/cSS project/Saved data/By section table';
 
 %% Import spreadsheet with object densities
 cd(directory.spreadsheet)
