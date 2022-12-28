@@ -101,7 +101,6 @@ xlim([-0.5 3.5]);
 
 ylabel_name = sprintf('%s objects in patch', inflammatory_marker);
 ylabel(ylabel_name, 'FontSize', 16);
-ylim([0 (nanmax(nanmax(stat_inflammation)))]);
 
 title(sprintf('CAA%d', brain), 'FontSize', 16);
 
