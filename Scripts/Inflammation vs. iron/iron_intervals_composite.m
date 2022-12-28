@@ -4,7 +4,7 @@
 inflammatory_marker = 'GFAP';
 
 %% Toggle: ICH sections (0: sections without ICH. 1: sections with ICH.)
-ICH_sections = 1;
+ICH_sections = 0;
 
 %% Define directories
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
@@ -22,7 +22,7 @@ for q = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
     cd(directory.scripts)
     
     if ICH_sections == 0
-        means = iron_intervals(q, inflammatory_marker);
+        means = iron_intervals(q, inflammatory_marker, 'None');
     elseif ICH_sections == 1
         means = iron_intervals(q, inflammatory_marker, 'ICH');
     end
