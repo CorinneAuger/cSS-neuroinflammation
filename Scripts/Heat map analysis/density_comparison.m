@@ -13,8 +13,8 @@ directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original de
 inflammatory_marker = 'GFAP';
 patch_size_microns = 500;
 
-for brain = [13, 14, 25]  % just for now
-    for block = [1, 4, 5]  % just for now
+for brain = [14]  % just for now
+    for block = [7]  % just for now
 
         close all
 
