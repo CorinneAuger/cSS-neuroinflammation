@@ -1,4 +1,5 @@
 %% Composite flexible columns ring weight analysis
+% Compares residuals.
 % Collects the data for the ring weight analysis with 0-4 rings and puts it together in a graph and matrix.
 
 close all
@@ -50,7 +51,7 @@ clear minima_all_blocks
 
 % Four column
 cd(directory.four_column_input)
-load('GFAP_and_Iron_1pixel_ring_weight_analysis_variables.mat', 'minima_all_blocks')
+load('GFAP_and_Iron_1pixel_4_column_ring_weight_analysis_variables.mat', 'minima_all_blocks')
 minima_all_blocks = minima_all_blocks(:, :, 1:26);
 
 matrix_four_column_minima_by_section = squeeze(minima_all_blocks(1, :, :));
