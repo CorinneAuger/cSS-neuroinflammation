@@ -100,6 +100,8 @@ for i = sections:-1:1
         final_matrix(i, :) = [];
     elseif final_matrix(i,4) == 8 && final_matrix(i, 5) == 2
         final_matrix(i, :) = [];
+    elseif final_matrix(i,4) == 14 && final_matrix(i, 5) == 4
+        final_matrix(i, :) = [];
     elseif final_matrix(i,4) == 21 && final_matrix(i, 5) == 2
         final_matrix(i, :) = [];
     end
