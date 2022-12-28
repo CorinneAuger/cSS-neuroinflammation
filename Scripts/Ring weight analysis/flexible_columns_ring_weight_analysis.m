@@ -7,7 +7,7 @@
 %% Inputs
 inflammatory_marker = 'GFAP'; % must be 'GFAP' or 'CD68'
 
-for number_of_columns = [3:4]
+for number_of_columns = [1:4]
     
     %% Input directories
     directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/All variables', inflammatory_marker);
@@ -272,7 +272,9 @@ for number_of_columns = [3:4]
     %% Save section graph
     cd(directory.save_by_section)
     saveas(gcf, sprintf('%s_and_Iron_%d_column_weights_by_section.png', inflammatory_marker, number_of_columns))
+    
     hold off
+    close all
     
     %% Calculate measures of central tendency across sections
     section_mean = nanmean(top_weight_for_each_section);
