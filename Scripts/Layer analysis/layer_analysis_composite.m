@@ -9,6 +9,7 @@ close all
 
 %% Input directories 
 directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Individual slides/%s 1000um/Variables', stain);
+directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Layer analysis';
 directory.save_plots = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Composite data/Plots';
 directory.save_variables = '/Volumes/Corinne hard drive/cSS project/Saved data/Edge analysis/Composite data/Variables';
 
