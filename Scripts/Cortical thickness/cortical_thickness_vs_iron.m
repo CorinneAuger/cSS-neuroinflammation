@@ -3,6 +3,9 @@
 % Assembles matrices and makes scatter plots for comparing cortical thickness to iron without a LME model.
 % Converts matrix to csv at the end, using another scipt, so it can be used in R to make an LME model.
 
+% Iron object counts come from Aiforia IA details sheets (1 per section).
+% Cortical thickness means come from spreadsheet.
+
 %% Input directories
 directory.IA_details = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/IA details';
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
