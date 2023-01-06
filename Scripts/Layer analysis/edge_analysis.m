@@ -228,6 +228,14 @@ if change_cortex_mask
             end
         end
         
+        for l = 1:x
+            for m = 1:y
+                if rainbow_figure(l, m, :) == 0
+                    rainbow_figure(l,m,:) = 1;
+                end
+            end
+        end
+        
         % Display figure
         close all
         figure;
