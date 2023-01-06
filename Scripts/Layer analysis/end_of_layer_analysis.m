@@ -157,11 +157,11 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
         xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
         
         if strcmp(stain, 'Iron')
-            ylabel('Iron deposits per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+            ylabel('Iron deposits per µm^2', 'FontSize', 20, 'FontWeight', 'bold');
         elseif strcmp(stain, 'GFAP')
-            ylabel('GFAP-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+            ylabel('GFAP-positive cells per µm^2', 'FontSize', 20, 'FontWeight', 'bold');
         elseif strcmp(stain, 'CD68')
-            ylabel('CD68-positive cells per ?m^2', 'FontSize', 20, 'FontWeight', 'bold');
+            ylabel('CD68-positive cells per µm^2', 'FontSize', 20, 'FontWeight', 'bold');
         end
         
         % Title
