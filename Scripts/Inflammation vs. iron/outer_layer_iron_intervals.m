@@ -104,9 +104,9 @@ for block = [1, 4, 5, 7]
             % Edge only inflammation
             subplot(2, 2, 3)
             if strcmp(inflammatory_marker, 'CD68') == 1
-                imshow(edge_only_stat_inflammation,[0 (patch_size_pixels^2) * 0.02]);
+                imshow(edge_only_stat_inflammation,[0 (patch_size_pixels^2) * 0.005]);
             elseif strcmp(inflammatory_marker, 'GFAP') == 1
-                imshow(edge_only_stat_inflammation,[0 (patch_size_pixels^2) * 0.01])
+                imshow(edge_only_stat_inflammation,[0 (patch_size_pixels^2) * 0.005])
             end
             
             title(sprintf('Outer 1000um only: CAA%d__%d_%s', brain, block, inflammatory_marker));
@@ -118,9 +118,9 @@ for block = [1, 4, 5, 7]
             % No edge inflammation
             subplot(2, 2, 4)
             if strcmp(inflammatory_marker, 'CD68') == 1
-                imshow(no_edge_stat_inflammation,[0 (patch_size_pixels^2) * 0.02]);
+                imshow(no_edge_stat_inflammation,[0 (patch_size_pixels^2) * 0.005]);
             elseif strcmp(inflammatory_marker, 'GFAP') == 1
-                imshow(no_edge_stat_inflammation,[0 (patch_size_pixels^2) * 0.01])
+                imshow(no_edge_stat_inflammation,[0 (patch_size_pixels^2) * 0.005])
             end
             
             title(sprintf('Without outer 1000um: CAA%d__%d_%s', brain, block, inflammatory_marker));
