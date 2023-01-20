@@ -10,9 +10,6 @@ directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original de
 
 %% 1. coregister og inflammation image to og iron image
 
-inflammatory_marker = 'GFAP';
-patch_size_microns = 500;
-
 for brain = [14]  % just for now
     for block = [7]  % just for now
 
