@@ -113,3 +113,6 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+*.ndpi
+*.png
+*.ndpis
