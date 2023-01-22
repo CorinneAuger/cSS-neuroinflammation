@@ -1,4 +1,3 @@
-%function [] = density_comparison(brain, block, inflammatory_marker, patch_size_microns)
 % Original function to make heat maps.
 % For a brand new slide, use this and then one_pixel_density_comparison.m
 
@@ -8,13 +7,14 @@ directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map an
 directory.tissue_screenshots = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Tissue screenshots';
 directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original density comparison';
 
-%% 1. coregister og inflammation image to og iron image
-
-inflammatory_marker = 'GFAP';
+%% Inputs to change
+inflammatory_marker = 'GFAP'
 patch_size_microns = 500;
 
-for brain = [14]  % just for now
-    for block = [7]  % just for now
+%% 1. coregister og inflammation image to og iron image
+
+for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]  % just for now
+    for block = [1, 4, 5, 7]  % just for now
 
         close all
 

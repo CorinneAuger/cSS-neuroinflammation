@@ -14,7 +14,6 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
         directory.variables = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Density comparison';
         directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
         directory.mask_documentation = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/Mask documentation';
-        directory.CD68_masks = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/CD68/All variables';
         directory.save_all_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/All variables', inflammatory_marker);
         directory.save_crucial_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
         directory.save_figures = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Figures', inflammatory_marker);
