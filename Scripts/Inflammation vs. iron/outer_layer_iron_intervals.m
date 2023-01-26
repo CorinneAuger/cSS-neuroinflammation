@@ -1,5 +1,5 @@
 function [edge_only_means, no_edge_means] = outer_layer_iron_intervals(brain, inflammatory_marker)
-% Makes final matrix and graph of iron vs. inflammation data, only looking at the outermost 1000um (basically the outermost layer of pixels).
+% Makes final matrix and graph of iron vs. inflammation data, only looking at the outermost 1000um (basically the outermost layer of pixels), then again looking at the cortex without the outermost 1000um.
 % Pixels are 250um * 250um instead of the usual 500um * 500um.
 
 close all
