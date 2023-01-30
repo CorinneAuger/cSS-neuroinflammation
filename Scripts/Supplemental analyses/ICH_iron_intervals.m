@@ -4,7 +4,7 @@
 inflammatory_marker = 'GFAP';
 
 %% Define directories
-directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
+directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Supplemental analyses';
 directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/ICH sections', inflammatory_marker);
 directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/ICH sections/Composite', inflammatory_marker);
 
