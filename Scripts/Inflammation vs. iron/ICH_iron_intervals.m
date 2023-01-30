@@ -4,7 +4,7 @@
 inflammatory_marker = 'GFAP';
 
 %% Define directories
-directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Supplemental analyses';
+directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
 directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/ICH sections', inflammatory_marker);
 directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/ICH sections/Composite', inflammatory_marker);
 
@@ -76,6 +76,8 @@ for h = 1 : length(ich_brains_and_blocks)
     
     %% Add to overall matrix
     all_ich_means(h, 1:4) = means;
+    
+    %% Save section
 end
 
 %% Make composite figure
