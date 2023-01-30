@@ -1,16 +1,12 @@
-function means = iron_intervals(brain, inflammatory_marker, specify_sections)
+function means = iron_intervals(brain, inflammatory_marker)
 % Iron vs. inflammation for a single brain. Used in iron_intervals_composite.
 
 close all
 
 %% Input directories
-if strcmp(specify_sections, 'ICH')
-    directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/ICH sections', inflammatory_marker);
-    directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/ICH sections', inflammatory_marker);
-else
-    directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
-    directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s', inflammatory_marker);
-end
+
+directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
+directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s', inflammatory_marker);
 
 for block = [1, 4, 5, 7]
     %% Import objects heat map

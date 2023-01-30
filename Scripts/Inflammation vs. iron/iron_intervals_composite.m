@@ -3,30 +3,16 @@
 
 inflammatory_marker = 'GFAP';
 
-%% Toggle: ICH sections (0: sections without ICH. 1: sections with ICH.)
-ICH_sections = 1;
-
 %% Define directories
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
-
-if ICH_sections == 0
-    directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/Composite', inflammatory_marker);
-elseif ICH_sections == 1
-    directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/ICH sections/Composite', inflammatory_marker);
-end
+directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s/Composite', inflammatory_marker);
 
 %% Run iron intervals script
 all_means = NaN(26,4);
 
 for q = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
-    cd(directory.scripts)
-    
-    if ICH_sections == 0
-        means = iron_intervals(q, inflammatory_marker, 'None');
-    elseif ICH_sections == 1
-        means = iron_intervals(q, inflammatory_marker, 'ICH');
-    end
-    
+    cd(directory.scripts)   
+    means = iron_intervals(q, inflammatory_marker, 'None');
     all_means(q, 1:4) = means;
 end
 
@@ -62,11 +48,5 @@ title(sprintf('Mean %s objects at iron density intervals by brain', inflammatory
 
 %% Save
 cd(directory.save)
-
-if ICH_sections == 0
-    save(sprintf('All_brains_%s_iron_intervals.mat', inflammatory_marker), 'all_means');
-    saveas(gcf, sprintf('All_brains_%s_iron_intervals_box_plot.png', inflammatory_marker));
-elseif ICH_sections == 1
-    save(sprintf('All_brains_ICH_%s_iron_intervals_by_section.mat', inflammatory_marker), 'all_means');
-    saveas(gcf, sprintf('All_brains_ICH_%s_iron_intervals_by_section_box_plot.png', inflammatory_marker));
-end
+save(sprintf('All_brains_%s_iron_intervals.mat', inflammatory_marker), 'all_means');
+saveas(gcf, sprintf('All_brains_%s_iron_intervals_box_plot.png', inflammatory_marker));
