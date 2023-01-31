@@ -1,4 +1,5 @@
-%% Non-normalized residuals
+%% Residual analysis
+% Compares the error between the best predicted GFAP heat map and the real one for each slide.
 
 clear
 
@@ -65,7 +66,7 @@ end
 figure
 boxplot(all_residuals_reformatted)
 xticklabels({'Pixel', 'Pixel + 1 ring', 'Pixel + 2 rings', 'Pixel + 3 rings'})
-ylabel('Mean difference between predicted and actual GFAP objects per 500µm * µm pixel', 'FontSize', 14)
+ylabel('Mean difference between predicted and actual GFAP objects per 500Âµm * Âµm pixel', 'FontSize', 14)
 set(gcf, 'position', [1 1 651 614])
 
 if scale_residuals == 0
