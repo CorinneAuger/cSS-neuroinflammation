@@ -1,6 +1,6 @@
 %% Flexible columns ring weight analysis
 % Ring weight analysis for any number of columns (1-4). Upgraded version.
-% You have to do each column individually.
+% Run the script for each column individually.
 % Number of columns = number of columns on the final graph comparing rings.
 % Number of columns = 1 + number of rings around central pixel
 
