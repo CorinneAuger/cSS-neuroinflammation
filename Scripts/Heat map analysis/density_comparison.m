@@ -8,13 +8,13 @@ directory.tissue_screenshots = '/Users/corinneauger/Documents/Aiforia heatmap co
 directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original density comparison';
 
 %% Inputs to change
-inflammatory_marker = 'GFAP'
+inflammatory_marker = 'GFAP';
 patch_size_microns = 500;
 
 %% 1. coregister og inflammation image to og iron image
 
-for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]  % just for now
-    for block = [1, 4, 5, 7]  % just for now
+for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]  
+    for block = [1, 4, 5, 7]  
 
         close all
 
