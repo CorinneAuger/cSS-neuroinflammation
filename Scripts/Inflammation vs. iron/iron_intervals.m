@@ -13,7 +13,7 @@ for block = [1, 4, 5, 7]
     variables_file = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
     cd(directory.input)
 
-    if isfile(variables_file) == 1   %lets us exclude sections that couldn't coregister
+    if isfile(variables_file) == 1   %lets us exclude ICH sections and sections that couldn't coregister
         load(variables_file, 'stat_iron');
         load(variables_file, 'stat_inflammation');
         [density_x, density_y] = size(stat_iron);
