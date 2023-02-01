@@ -1,7 +1,7 @@
-%% Iron vs. inflammation by section
+%% Inflammation vs. iron by section
 
-% Used in cortical_thickness_vs_iron to save the data.
-% Makes a CSV with columns for iron (saved as .mat), cortical thickness (saved as .mat), brain, lobe, sex (saved in spreadsheet), age (saved in spreadsheet), and PMI (saved in spreadsheet) for use in LME model.
+% Makes a spreadsheet with columns for iron, GFAP, CD68, brain, lobe, sex, and age at death.
+% Spreadsheet can be used to create LME model.
 
 clear
 

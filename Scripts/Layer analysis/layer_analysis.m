@@ -42,7 +42,7 @@ if strcmp(stain, 'GFAP') == 1 || strcmp(stain, 'CD68') == 1
     cortex_mask = inflammation_tissue_mask;
     
 elseif strcmp(stain, 'Iron') == 1
-    % Allow CD68-only exclusions to use GFAP data instead
+    % Allow CD68-only exclusions to use iron data from the GFAP analysis instead
     if isfile(variables_file) == 0
         % Update variables like GFAP was in use all along
         inflammatory_marker = 'GFAP';
@@ -286,12 +286,3 @@ clear k l m
 cd(directory.save)
 all_variables_save_name = sprintf('CAA%d_%d_%s_edge_analysis_variables.mat', brain, block, stain);
 save(all_variables_save_name);
-
-%else
-%% If below iron threshold
-%fprintf 'Not enough iron!';
-
-%close all
-%cd(directory.scripts)
-
-%end
