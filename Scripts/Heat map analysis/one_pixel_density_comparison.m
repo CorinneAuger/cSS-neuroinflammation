@@ -13,24 +13,37 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
         %% Define directories
         directory.variables = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Density comparison';
         directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
+        directory.I_vs_I_scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
         directory.mask_documentation = '/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/Mask documentation';
         directory.save_all_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/All variables', inflammatory_marker);
         directory.save_crucial_variables = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
         directory.save_figures = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Figures', inflammatory_marker);
-
-        if strcmp(inflammatory_marker, 'GFAP') == 1
-            directory.exclusion = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Saved data/Neighbor analysis/Comparing ring weights/By section/1-tailed/GFAP 1-tailed early brightness correction';
-            exclusion_file = sprintf('CAA%d__%d_%s_and_Iron_best_weights.mat', brain, block, inflammatory_marker);
-        elseif strcmp(inflammatory_marker, 'CD68') == 1
-            directory.exclusion = directory.variables;
-            exclusion_file = sprintf('CAA%d_%d_%s_and_Iron_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
+        directory.save_ich = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/ICH sections', inflammatory_marker);
+        
+        %% Get sections to exclude
+        cd(directory.I_vs_I_scripts)
+        [ich_brains_and_blocks, excluded_brains_and_blocks] = ID_ICH_sections(inflammatory_marker);
+        
+        for i = 1 : length(ich_brains_and_blocks)
+            if brain == excluded_brains_and_blocks(i, 1) && block == excluded_brains_and_blocks(i, 2)
+                exclude_section = 1;
+                return
+            else
+                exclude_section = 0;
+            end
+            
+            if brain == ich_brains_and_blocks(i, 1) && block == ich_brains_and_blocks(i, 2)
+                ich_section = 1;
+                return
+            else
+                ich_section = 0;
+            end
         end
-
+        
         %% Load variables
         variables_file = sprintf('CAA%d_%d_%s_and_Iron_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
-
-        cd(directory.exclusion)
-        if isfile(exclusion_file)
+     
+        if exclude_section == 0
 
             cd(directory.variables)
             load(variables_file);
@@ -303,32 +316,38 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
             axis off
 
             %% Save
-            % Save final figure
-            cd(directory.save_figures)
-            density_figure_save_name = sprintf('CAA%d_%d_%s_and_Iron_density_figure.png', brain, block, inflammatory_marker);
-            saveas(gcf, density_figure_save_name);
+            if ich_section == 0
+                % Save final figure
+                cd(directory.save_figures)
+                density_figure_save_name = sprintf('CAA%d_%d_%s_and_Iron_density_figure.png', brain, block, inflammatory_marker);
+                saveas(gcf, density_figure_save_name);
 
-            % Save file of all variables
-            clear all_variables_save_name cruicial_variables_save_name
-            cd(directory.save_all_variables)
-            all_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
-            save(all_variables_save_name);
+                % Save file of all variables
+                clear all_variables_save_name cruicial_variables_save_name
+                cd(directory.save_all_variables)
+                all_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
+                save(all_variables_save_name);
 
-            % Save file of crucial variables
-            cd(directory.save_crucial_variables)
-            crucial_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
-            save(crucial_variables_save_name, 'stat_iron', 'stat_inflammation', 'rotation', 'original_iron', 'original_inflammation', 'iron_tissue_mask', 'iron_heat_map', 'inflammation_heat_map');
+                % Save file of crucial variables
+                cd(directory.save_crucial_variables)
+                crucial_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
+                save(crucial_variables_save_name, 'stat_iron', 'stat_inflammation', 'rotation', 'original_iron', 'original_inflammation', 'iron_tissue_mask', 'iron_heat_map', 'inflammation_heat_map');
+            elseif ich_section == 1
+                cd(directory.save_ich)
+                
+                % Save final figure
+                density_figure_save_name = sprintf('CAA%d_%d_%s_and_Iron_density_figure.png', brain, block, inflammatory_marker);
+                saveas(gcf, density_figure_save_name);
 
-            % Save new version of mask documentation (only useful if manually edited)
-            %mask_doc_tmp = mask_documentation.mask_documentation;
-            %clear mask_documentation
-            
-            %mask_documentation = mask_doc_tmp;
-            %clear mask_doc_tmp
-            
-            %cd(directory.mask_documentation)
-            %save('primary_mask_documentation.mat', 'mask_documentation')
-            
+                % Save file of all variables
+                clear all_variables_save_name cruicial_variables_save_name
+                all_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
+                save(all_variables_save_name);
+
+                % Save file of crucial variable
+                crucial_variables_save_name = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
+                save(crucial_variables_save_name, 'stat_iron', 'stat_inflammation', 'rotation', 'original_iron', 'original_inflammation', 'iron_tissue_mask', 'iron_heat_map', 'inflammation_heat_map');
+            end
         end
 
         % Reset for the next iteration of the loop
