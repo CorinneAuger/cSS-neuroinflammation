@@ -3,6 +3,12 @@
 Compares mean cortical thickness to the number of iron deposits within sections
 
 ## Input
+- Spreadsheet with mean cortical thickness for each section
+	- Make this spreadsheet manually
+		- Column A: "Brain"
+		- Column B: "Block"
+		- Columns C-E: cortical thickness measurements (in um)
+		- Column F: mean cortiacl thickness measurement
 - Full IA details output spreadsheet for each section (download from Aiforia). All stains can go in the same folder.
 - Image sizes spreadsheet (ex. "Aiforia_image_sizes_CD68.xlsx")
 	- Make this spreadsheet manually.
@@ -21,6 +27,7 @@ Compares mean cortical thickness to the number of iron deposits within sections
 			- 2: ICH
 - Directories
 	- Scripts folders
+	- Cortical thickness measurement spreadsheet
 	- IA details spreadsheets
 	- Image sizes spreadsheet
 	- Save 
