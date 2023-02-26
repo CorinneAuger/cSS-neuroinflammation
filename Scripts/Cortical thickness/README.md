@@ -33,8 +33,6 @@ Compares mean cortical thickness to the number of iron deposits within sections
 			- 2: ICH
 - Directories
 	- Scripts folders
-	- Cortical thickness measurement spreadsheet
-	- IA details spreadsheets
 	- Image sizes spreadsheet
 	- Save 
 
