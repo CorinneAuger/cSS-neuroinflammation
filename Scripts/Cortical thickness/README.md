@@ -3,6 +3,18 @@
 Compares mean cortical thickness to the number of iron deposits within sections
 
 ## Input
+- Spreadsheet with total object quantities and mean cortical thickness for each section
+	- Make this spreadsheet manually
+		- Column A: "Brain"
+		- Column B: "Lobe"
+		- Column C: "Age_at_death"
+		- Column D: "Sex_0_male_1_female"
+		- Column E: "PMI" (post-mortem interval, in hrs)
+		- Column F: "Iron" (section-wide object quantity)
+		- Column G: "GFAP" (section-wide object quantity)
+		- Column H: "CD68" (section-wide object quantity)
+		- Columns I-K: Cortical thickness measurements 1-3 (mmm)
+		- Column L: "Cortiacl thickness mean" (mm)
 - Full IA details output spreadsheet for each section (download from Aiforia). All stains can go in the same folder.
 - Image sizes spreadsheet (ex. "Aiforia_image_sizes_CD68.xlsx")
 	- Make this spreadsheet manually.
@@ -21,7 +33,6 @@ Compares mean cortical thickness to the number of iron deposits within sections
 			- 2: ICH
 - Directories
 	- Scripts folders
-	- IA details spreadsheets
 	- Image sizes spreadsheet
 	- Save 
 
