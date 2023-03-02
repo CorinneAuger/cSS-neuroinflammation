@@ -119,19 +119,23 @@ for i = sections:-1:1
     end
 end
 
-%% Delete ICH sections
+%% Delete ICH sections and sections with poor iron tissue detection
 [sections, ~] = size(final_matrix);
 
 for i = sections:-1:1
-    if final_matrix(i,1) == 5 && final_matrix(i, 2) == 4
+    if final_matrix(i,1) == 5 && final_matrix(i, 2) == 4        % ICH
         final_matrix(i, :) = [];
-    elseif final_matrix(i,1) == 5 && final_matrix(i, 2) == 7
+    elseif final_matrix(i,1) == 5 && final_matrix(i, 2) == 7    % ICH
         final_matrix(i, :) = [];
-    elseif final_matrix(i,1) == 8 && final_matrix(i, 2) == 4
+    elseif final_matrix(i,1) == 8 && final_matrix(i, 2) == 4    % ICH
         final_matrix(i, :) = [];
-    elseif final_matrix(i,1) == 14 && final_matrix(i, 2) == 7
+    elseif final_matrix(i,1) == 14 && final_matrix(i, 2) == 7   % ICH
         final_matrix(i, :) = [];
-    elseif final_matrix(i,1) == 21 && final_matrix(i, 2) == 4
+    elseif final_matrix(i,1) == 21 && final_matrix(i, 2) == 4   % ICH
+        final_matrix(i, :) = [];
+    elseif final_matrix(i,1) == 23 && final_matrix(i, 2) == 1   % tissue detection
+        final_matrix(i, :) = [];
+    elseif final_matrix(i,1) == 23 && final_matrix(i, 2) == 7   % tissue detection
         final_matrix(i, :) = [];
     end
 end
