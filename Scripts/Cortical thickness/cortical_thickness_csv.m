@@ -37,9 +37,8 @@ for i = length:-1:1
     end
     
     %% Delete rows with NaNs
-    if isnan(by_section_matrix(i, 5))
-        by_section_table(i,:) = [];
-    elseif isnan(by_section_matrix(i, 7))
+    % 5: PMI, 6: iron, 7: cortical thickness
+    if isnan(by_section_matrix(i, 5)) || isnan(by_section_matrix(i, 6)) || isnan(by_section_matrix(i, 7)) 
         by_section_table(i,:) = [];
     end
 end
