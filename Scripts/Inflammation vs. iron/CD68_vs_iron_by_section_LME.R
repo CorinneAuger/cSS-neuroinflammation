@@ -21,12 +21,12 @@ rm(list = ls())
 data_csv = read.csv('/Volumes/Corinne hard drive/cSS project/ALL EXCLUDED/By section table (E)/Iron_and_inflammation_quantities_by_section.csv')
 
 #Model before testing assumptions
-M1 = lmer(GFAP ~ Iron + Age_at_death + Sex_0_male_1_female + (1|Brain) + (1|Lobe), data=data_csv, na.action = na.exclude, REML = FALSE)
+M1 = lmer(CD68 ~ Iron + Age_at_death + Sex_0_male_1_female + (1|Brain) + (1|Lobe), data=data_csv, na.action = na.exclude, REML = FALSE)
 #error: some predictor variables are on very different scales: consider rescaling
 summary(M1)
 
 #Null model before testing assumptions
-M0 = lmer(GFAP ~ Age_at_death + Sex_0_male_1_female + (1|Brain) + (1|Lobe), data=data_csv, na.action = na.exclude, REML = FALSE)
+M0 = lmer(CD68 ~ Age_at_death + Sex_0_male_1_female + (1|Brain) + (1|Lobe), data=data_csv, na.action = na.exclude, REML = FALSE)
 summary(M0)
 
 
@@ -113,8 +113,8 @@ pred.mm <- ggpredict(new_full_model, terms = c("Iron"))  # this gives overall pr
     geom_ribbon(aes(x = x, ymin = predicted - std.error, ymax = predicted + std.error), 
                 fill = "lightgrey", alpha = 0.5) +  # error band
     geom_point(data = no_NaN_data_csv, size = 2,                      # adding the raw data
-               aes(x = Iron, y = GFAP, colour = factor(Lobe))) + 
-    labs(x = "Iron deposits", y = "GFAP-positive cells") + 
+               aes(x = Iron, y = CD68, colour = factor(Lobe))) + 
+    labs(x = "Iron deposits", y = "CD68-positive cells") + 
     theme_classic()+
     theme(plot.title = element_text(hjust=0.5, face = "bold", size= 13)) + 
     theme(axis.text.x = element_text(size = 12, face="bold"), axis.title.x = element_text(size = 12, face="bold"), axis.text.y = element_text(size = 12, face="bold"), axis.title.y = element_text(size = 12, face="bold"))
