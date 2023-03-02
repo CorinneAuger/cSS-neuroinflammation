@@ -144,5 +144,9 @@ end
 final_table = array2table(final_matrix, 'VariableNames', {'Brain', 'Lobe', 'Age_at_death', 'Sex_0_male_1_female', 'PMI', 'Iron', 'GFAP', 'CD68'});
 
 %% Save
+% Save as xlsx
 cd(directory.save)
 writetable(final_table, 'Iron_and_inflammation_quantities_by_section.xlsx')
+
+% Save as csv
+writetable(final_table, 'Iron_and_inflammation_quantities_by_section.csv')
