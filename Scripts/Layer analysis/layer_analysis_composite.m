@@ -85,9 +85,6 @@ set(gca, 'XTickLabel', a, 'fontsize', 15, 'fontweight', 'bold')
 y_max = 1.5 * nanmax(nanmax(layer_densities_all_brains));
 ylim([0 y_max])
 
-b = get(gca,'YTickLabel');
-set(gca, 'YTickLabel', b, 'fontsize', 15, 'fontweight', 'bold')
-
 % Axis labels
 xlabel('1000 µm layer', 'FontSize', 20, 'FontWeight', 'bold');
 
