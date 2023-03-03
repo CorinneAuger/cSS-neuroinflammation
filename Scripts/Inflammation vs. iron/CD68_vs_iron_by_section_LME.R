@@ -112,9 +112,9 @@ pred.mm <- ggpredict(new_full_model, terms = c("Iron"))  # this gives overall pr
     geom_line(aes(x = x, y = predicted)) +          # slope
     geom_ribbon(aes(x = x, ymin = predicted - std.error, ymax = predicted + std.error), 
                 fill = "lightgrey", alpha = 0.5) +  # error band
-    geom_point(data = no_NaN_data_csv, size = 2,                      # adding the raw data
+    geom_point(data = data_csv, size = 2,                      # adding the raw data
                aes(x = Iron, y = CD68, colour = factor(Lobe))) + 
-    labs(x = "Iron deposits", y = "CD68-positive cells") + 
+    labs(x = "Iron deposits per section", y = "CD68-positive cells per section") + 
     theme_classic()+
     theme(plot.title = element_text(hjust=0.5, face = "bold", size= 13)) + 
     theme(axis.text.x = element_text(size = 12, face="bold"), axis.title.x = element_text(size = 12, face="bold"), axis.text.y = element_text(size = 12, face="bold"), axis.title.y = element_text(size = 12, face="bold"))
