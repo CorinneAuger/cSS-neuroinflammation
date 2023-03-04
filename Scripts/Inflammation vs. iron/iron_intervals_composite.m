@@ -12,7 +12,7 @@ all_means = NaN(26,4);
 
 for q = [1:3, 5, 7:9, 11, 13:15, 17:18, 20:25]
     cd(directory.scripts)   
-    means = iron_intervals(q, inflammatory_marker, 'None');
+    means = iron_intervals(q, inflammatory_marker);
     all_means(q, 1:4) = means;
 end
 
