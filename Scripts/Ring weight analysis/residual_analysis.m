@@ -2,6 +2,7 @@
 
 clear
 
+%% Manual inputs
 scale_residuals = 0; % toggle on and off
 inflammatory_marker = 'GFAP';
 patch_size_microns = 500;
@@ -26,7 +27,6 @@ for number_of_columns = 1:4
     
     for brain = 1:25
         for block = [1 4 5 7]
-            
             variables_file_name = sprintf('CAA%d__%d_%s_and_Iron_best_weights_%d_column.mat', brain, block, inflammatory_marker, number_of_columns);
             cd(directory.input)
             
