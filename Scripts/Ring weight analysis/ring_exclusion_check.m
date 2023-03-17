@@ -4,8 +4,8 @@
 close all
 clear
 
-%% Change manually
 for number_of_columns = 1:4
+    %% Change manually
     inflammatory_marker = 'GFAP';
     
     %% Input directories

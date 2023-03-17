@@ -4,7 +4,6 @@ function means = iron_intervals(brain, inflammatory_marker)
 close all
 
 %% Input directories
-
 directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/Crucial variables', inflammatory_marker);
 directory.save = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel interval analysis/%s', inflammatory_marker);
 
