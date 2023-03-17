@@ -54,9 +54,10 @@ for i = 1:length_excluded
     end
 end
 
-%% Re-run inflammation vs. iron analysis
+%% Re-run inflammation vs. iron composite analysis
 if isempty(wrongly_included) == 0
     cd(directory.scripts)
     iron_intervals_composite(inflammatory_marker);
 end
+
 end
