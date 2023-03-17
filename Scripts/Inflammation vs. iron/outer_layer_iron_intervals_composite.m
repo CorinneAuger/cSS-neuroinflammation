@@ -2,7 +2,7 @@
 % Makes final matrix and graph of iron vs. inflammation data, only looking at the outermost 1000um.
 
 %% Toggle: 0 to use data already generated. 1 to run outer_layer_iron_interval on everything.
-new_data = 0;
+new_data = 1;
 
 %% Make loop to do 2 stains at once
 for i = 1:2
