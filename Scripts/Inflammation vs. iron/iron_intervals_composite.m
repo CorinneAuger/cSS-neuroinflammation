@@ -1,7 +1,7 @@
 %% Iron intervals composite
 % Makes final matrix and graph of iron vs. inflammation data. 
 
-inflammatory_marker = 'GFAP';
+function [] = iron_intervals_composite(inflammatory_marker)
 
 %% Define directories
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Inflammation vs. iron';
@@ -50,3 +50,5 @@ title(sprintf('Mean %s objects at iron density intervals by brain', inflammatory
 cd(directory.save)
 save(sprintf('All_brains_%s_iron_intervals.mat', inflammatory_marker), 'all_means');
 saveas(gcf, sprintf('All_brains_%s_iron_intervals_box_plot.png', inflammatory_marker));
+
+end
