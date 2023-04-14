@@ -1,8 +1,14 @@
+function [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain)
+
 %% Coregisters NanoZoomer scans of two serial sections with different stains
 % For use in density_comparison.
 % If the coregistration doesn't work the first time, try changing "affine" to "similarity" and increasing the maximum iterations.
 
-function [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain)
+% Arguments
+%   brain: number (ex. for CAA3_7_GFAP, brain = 3)
+%   block: number (ex. for CAA3_7_GFAP, block = 7)
+%   fixed_image_stain: name of stain to which the other stain will be coregistered, in quotes (ex. 'Iron')
+%   moving_image_stain: name of stain that will be coregistered to the other stain, in quotes (ex. 'GFAP')
 
 %% Input directory
 directory.original_images = '/Volumes/Corinne hard drive/cSS project/Original images';
