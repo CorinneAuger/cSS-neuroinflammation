@@ -2,11 +2,13 @@ function stat = PatchGenerator_density_comparison(img_in, size_patch, size_jump,
 
 % Converts a matrix scatter plot/heat map into a smaller heat map.
 % Counts objects, not densities.
-
-% Size_patch is a 2x1 matrix with the dimensions of the patch.
-% size_jump should be the same as size_patch unless you want your patches to overlap or skip over areas.
-% Set count_type to 'Zeros' to count zeros and 'Values' to sum values.
 % Used in functions throughout project.
+
+% Arguments
+%   img_in: matrix representing the scatter plot that you want to represent as a heat map.
+%   size_patch: 2x1 matrix with the dimensions of the pixel (ex. [500, 500]).
+%   size_jump: same as size_patch unless you want your patches to overlap or skip over areas.
+%   count_type: 'Zeros' bases the heat map on the number of zeros in a pixel. 'Values' bases the heat map on the sum of the values in the pixel. 
 
 %% Get parameters
 [dimx, dimy, ~] = size(img_in);
