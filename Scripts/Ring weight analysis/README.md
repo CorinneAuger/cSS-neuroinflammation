@@ -28,5 +28,7 @@ Assesses the spatial extent of iron's effect on inflammatory cells by comparing 
 ## For complete analysis
 1. Run flexible_columns_ring_weight_analysis with inflammatory_marker = 'GFAP' and again with inflammatory_marker = 'CD68' (gets data for individual sections)
 2. Run composite_flexible_columns_ring_weight_analysis (combines individual section data into composite coefficient data)
-3. Run residual_analysis (composite residual data)
+3. Run ring_exclusion_check (makes sure no extra sections were included)
+4. Run residual_analysis (composite residual data)
+5. Run ring_weight_residual_check (makes sure no extra sections were included)
 Optional: run ring_weight_predicted_map_figures.m, then look through the output to find good example heat maps for figures

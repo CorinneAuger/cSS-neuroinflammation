@@ -25,3 +25,4 @@ Compares the densities of Aiforia-identified objects between 1000um-thick artifi
 	- Fill in the edge of a slide where there is not tissue but where the tissue was cut (not a true cortical edge) as if there were tissue there.
 2. Optional: run color_darken.py to get darkened colors for point borders on plots if you want to change them. They're hard-coded into the section of layer_analysis_composite.m called "Set up color palettes."
 3. Run layer_analysis_composite.m for each stain.
+4. Run layer_analysis_check.m for each stain.
