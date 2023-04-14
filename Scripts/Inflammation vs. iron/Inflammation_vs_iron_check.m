@@ -1,9 +1,13 @@
 %% Inflammation vs. Iron check
 % Checks that no excluded sections are included in the input to the inflammation vs. iron analysis or the edge-only/no-edge analyses
 
-function [] = Inflammation_vs_iron_check(inflammatory_marker)
+% Arguments
+%   inflammatory_marker: 'GFAP' or 'CD68'
+%   tissue_area: 'all' for inflammation vs. iron analysis; 'edge' for edge-only/no-edge analyses
 
-clearvars -except inflammatory_marker
+function [] = Inflammation_vs_iron_check(inflammatory_marker, tissue_area)
+
+clearvars -except inflammatory_marker tissue_area
 close all
 
 %% Define directories
@@ -31,33 +35,37 @@ for i = 1:length_excluded
     cd(directory.input)
     brain = excluded_sections(i, 1);
     block = excluded_sections(i, 2);
-    
+
     crucial_variables_file = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_crucial_variables.mat', brain, block, inflammatory_marker);
-    
+
     %% For sections that should have been excluded
     if isfile(crucial_variables_file)
         % Document
         section_name = sprintf('CAA%d_%d_%s', brain, block, inflammatory_marker);
         wrongly_included = [wrongly_included, section_name];
-        
+
         % Delete
         recycle('on');
         delete(crucial_variables_file);
-        
+
         cd(directory.all_variables)
         all_variables_file = sprintf('CAA%d_%d_%s_and_Iron_1pixel_density_comparison_all_variables.mat', brain, block, inflammatory_marker);
         delete(all_variables_file);
-        
+
         cd(directory.figures)
         figure_file = sprintf('CAA%d_%d_%s_and_Iron_density_figure.png', brain, block, inflammatory_marker);
         delete(figure_file);
     end
 end
 
-%% Re-run inflammation vs. iron composite analysis
+%% Re-run initial analysis
 if isempty(wrongly_included) == 0
     cd(directory.scripts)
-    iron_intervals_composite(inflammatory_marker);
+    if strcmp(tissue_area, 'all')
+      iron_intervals_composite(inflammatory_marker);
+    elseif (tissue_area, 'edge')
+      run outer_layer_iron_intervals_composite;
+    end
 end
 
 end
