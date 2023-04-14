@@ -58,7 +58,8 @@ Compares  to the number of inflammatory cells, as a continuous variable, to the 
 		- Matrix of inflammation quantity at each iron interval in each brain
 
 ## For complete analysis
-1. Run Inflammation_vs_iron_by_section (for non-ICH sections)
+1. Run Inflammation_vs_iron_by_section (for non-ICH sections).
 2. Run iron_intervals_composite.m for each inflammatory marker (for non-ICH sections)
-3. Run outer_layer_iron_intervals.m for each inflammatory marker (for non-ICH sections; to make sure effect isn't only driven by outer edge)
-4. Run ICH_iron_intervals.m for each inflammatory marker (for ICH sections)
+3. Run Inflammation_vs_iron_check.
+4. Run outer_layer_iron_intervals.m for each inflammatory marker (for non-ICH sections; to make sure effect isn't only driven by outer edge)
+5. Run ICH_iron_intervals.m for each inflammatory marker (for ICH sections)
