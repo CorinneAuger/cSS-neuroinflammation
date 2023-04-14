@@ -1,5 +1,6 @@
 %% Coregisters NanoZoomer scans of two serial sections with different stains
 % For use in density_comparison.
+% If the coregistration doesn't work the first time, try changing "affine" to "similarity" and increasing the maximum iterations.
 
 function [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain)
 
