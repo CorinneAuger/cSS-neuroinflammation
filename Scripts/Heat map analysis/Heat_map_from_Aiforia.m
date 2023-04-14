@@ -8,7 +8,7 @@ function heat_map = Heat_map_from_Aiforia(brain, block, stain, roi)
 %   block: number (ex. for CAA3_7_GFAP, block = 7)
 %   stain: name of stain in quotes (ex. for CAA3_7_GFAP, stain = 'GFAP')
 %   roi: number of cortex rois in Aiforia. Usually there will be only one, but if there are non-contiguous sections of cortex, there may be multiple. 
-%       Try to avoid having multiple when drawing new rois.
+%       Try to avoid having multiple rois when drawing new them.
 
 %% Input directories
 directory.IA_details = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/IA details';
