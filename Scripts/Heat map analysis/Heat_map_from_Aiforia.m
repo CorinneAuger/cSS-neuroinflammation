@@ -1,6 +1,14 @@
 function heat_map = Heat_map_from_Aiforia(brain, block, stain, roi)
+% NOTE: if you want to use this function independently, use scaled_down_no_scatter_heat_map instead.
 % Makes an iron scatter plot with the coordinates exported from Aiforia but underestimates the count of objects that are close together.
 % This function is used in density_comparison.m just to make it run, but its output is replaced in one_pixel_density_comparison.
+
+% Arguments
+%   brain: number (ex. for CAA3_7_GFAP, brain = 3)
+%   block: number (ex. for CAA3_7_GFAP, block = 7)
+%   stain: name of stain in quotes (ex. for CAA3_7_GFAP, stain = 'GFAP')
+%   roi: number of cortex rois in Aiforia. Usually there will be only one, but if there are non-contiguous sections of cortex, there may be multiple. 
+%       Try to avoid having multiple when drawing new rois.
 
 %% Input directories
 directory.IA_details = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/IA details';
