@@ -1,5 +1,5 @@
 # cSS and neuroinflammation
-For the paper entitled "Chronic Neuroinflammation is Associated with Cortical Superficial Siderosis in Cerebral Amyloid Angiopathy." 
+For the paper entitled "Cortical Superficial Siderosis is Associated with Chronic Neuroinflammation in Cerebral Amyloid Angiopathy." 
 
 Spatial analyses to compare the densities of reactive astrocytes (GFAP) and activated microglia (CD68) to that of iron and to examine where iron is located in tissue.
 
