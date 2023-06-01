@@ -17,7 +17,8 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
     for block = [1, 4, 5, 7]  
 
         close all
-
+        
+        cohort = 'CAA';
         number_inflammation_rois = 1;
 
         cd(directory.image_sizes_spreadsheets)
@@ -39,7 +40,7 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
         cd(directory.scripts)
         fixed_image_stain = 'Iron';
         moving_image_stain = inflammatory_marker;
-        [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain);
+        [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(cohort, brain, block, fixed_image_stain, moving_image_stain);
 
         %% 2. make iron and inflammation scatterplots (for both and combine)
 
