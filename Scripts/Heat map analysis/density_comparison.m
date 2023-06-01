@@ -4,6 +4,7 @@
 %% Define directories
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
+directory.original_images = '/Volumes/Corinne hard drive/cSS project/Original images';
 directory.tissue_screenshots = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Tissue screenshots';
 directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original density comparison';
 
@@ -40,7 +41,7 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
         cd(directory.scripts)
         fixed_image_stain = 'Iron';
         moving_image_stain = inflammatory_marker;
-        [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(cohort, brain, block, fixed_image_stain, moving_image_stain);
+        [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(cohort, directory, brain, block, fixed_image_stain, moving_image_stain);
 
         %% 2. make iron and inflammation scatterplots (for both and combine)
 
