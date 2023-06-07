@@ -16,6 +16,6 @@ Takes NanoZoomer-digitized sections of 6um-thick formalin-fixed, paraffin-embedd
 ## Contact: 
 Corinne Auger
 
-Lab technician, van Veluw lab (MGH Institute for Neurodegenerative Disease), 2020-2023
+Lab technician, Van Veluw lab (MGH Institute for Neurodegenerative Disease), 2020-2023
 
 corinneauger7@gmail.com
