@@ -10,9 +10,7 @@ Generates a heat map of object quantities in 500um * 500 um pixels for each stai
 		- Column C: "Height"
 			- Info is in "Images" folder for the stain on Aiforia, in list view. Unit: px.
 		- Column D: "Rotation" to match iron slide
-			- 0: none
-			- 1: 180° rotation
-			- 2: 90° rotation counterclockwise
+			- Number of degrees CCW
 		- Column E: "Excluded"
 			- 0: included
 			- 1: excluded because of problems with coregistration
