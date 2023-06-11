@@ -4,6 +4,7 @@
 %% Define directories
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
 directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
+directory.original_images = '/Volumes/Corinne hard drive/cSS project/Original images';
 directory.tissue_screenshots = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Tissue screenshots';
 directory.save = '/Volumes/Corinne hard drive/cSS project/Saved data/Original density comparison';
 
@@ -17,7 +18,8 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
     for block = [1, 4, 5, 7]  
 
         close all
-
+        
+        cohort = 'CAA';
         number_inflammation_rois = 1;
 
         cd(directory.image_sizes_spreadsheets)

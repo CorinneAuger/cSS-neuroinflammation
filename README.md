@@ -1,5 +1,5 @@
 # cSS and neuroinflammation
-For the paper entitled "Chronic Neuroinflammation is Associated with Cortical Superficial Siderosis in Cerebral Amyloid Angiopathy." 
+For the paper entitled "Cortical Superficial Siderosis is Associated with Chronic Neuroinflammation in Cerebral Amyloid Angiopathy." 
 
 Spatial analyses to compare the densities of reactive astrocytes (GFAP) and activated microglia (CD68) to that of iron and to examine where iron is located in tissue.
 
@@ -16,6 +16,6 @@ Takes NanoZoomer-digitized sections of 6um-thick formalin-fixed, paraffin-embedd
 ## Contact: 
 Corinne Auger
 
-Lab technician, van Veluw lab (MGH Institute for Neurodegenerative Disease), 2020-2023
+Lab technician, Van Veluw lab (MGH Institute for Neurodegenerative Disease), 2020-2023
 
 corinneauger7@gmail.com
