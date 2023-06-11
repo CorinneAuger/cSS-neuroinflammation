@@ -1,13 +1,20 @@
-function final_heat_map = scaled_down_no_scatter_heat_map(scale_image, brain, block, stain, roi)
-% Makes an accurate scatter plot with the object counts from the region each pixel represents in Aiforia.
+function final_heat_map = scaled_down_no_scatter_heat_map(cohort, directory, scale_image, brain, block, stain, roi, region)
+%% Makes an accurate scatter plot with the object counts from the region each pixel represents in Aiforia.
 % Used in one_pixel_density_comparison.
 
-%% Input directories
-directory.scripts = '/Volumes/Corinne hard drive/cSS project/Scripts/Heat map analysis';
+% Arguments
+%   cohort: 'CAA' or 'ADRC'
+%   directory: struct of paths. Needs to include IA_details, images_sizes_spreadsheets, scripts, css_heat_map_scripts, and original_images.
+%   scale_image: matrix for original image
+%   brain: number (ex. for CAA3_7_GFAP, brain = 3)
+%   block: number (ex. for CAA3_7_GFAP, block = 7)
+%   stain: name of stain in quotes (ex. 'Iron')
+%   roi: number of rois for the region (usually 1)
+%   region: if cohort is 'CAA', enter []. If cohort is 'ADRC', enter 'hc', 'phc', 'ec', or 'am'
 
 %% Generate original giant scatter plot
-cd(directory.scripts);
-giant_plot = no_scatter_heat_map_from_Aiforia(brain, block, stain, roi);
+cd(directory.css_heat_map_scripts);
+giant_plot = no_scatter_heat_map_from_Aiforia(cohort, directory, brain, block, stain, roi, region);
 
 %% Get sizes of giant heat map and image to which we're trying to scale it
 [dimx, dimy, ~] = size(giant_plot);
@@ -18,9 +25,9 @@ size_patch = [ceil(dimx/og_x), ceil(dimy/og_y)];
 size_jump = size_patch;
 
 %% Patch generator
-% This divides the original scatter plot into patches with dimensions that are whole numbers of pixels, rounding down in size if necessary.
+% Divides the original scatter plot into patches with dimensions that are whole numbers of pixels, rounding down in size if necessary.
 % Each patch's value is the number of objects that were in it.
-cd(directory.scripts)
+cd(directory.css_heat_map_scripts)
 almost_scaled_heat_map = PatchGenerator_density_comparison(giant_plot, size_patch, size_jump, 'Zeros');
 
 %% Resize final heat map (resizing up slightly because patch size rounded up) to fit the size of the coregistered images.

@@ -6,7 +6,7 @@
 %% Inputs
 inflammatory_marker = 'GFAP'; % must be 'GFAP' or 'CD68'
 
-for number_of_columns = [1:4]
+for number_of_columns = 1:4
     
     %% Input directories
     directory.input = sprintf('/Volumes/Corinne hard drive/cSS project/Saved data/One-pixel density comparison/%s/All variables', inflammatory_marker);
