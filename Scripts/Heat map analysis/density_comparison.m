@@ -39,7 +39,7 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
         cd(directory.scripts)
         fixed_image_stain = 'Iron';
         moving_image_stain = inflammatory_marker;
-        [rotation, D, tform, coregistered_inflammation] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain);
+        [rotation, D, tform, coregistered_inflammation, ~, ~] = Aiforia_coregistration(brain, block, fixed_image_stain, moving_image_stain);
 
         %% 2. make iron and inflammation scatterplots (for both and combine)
 
@@ -78,13 +78,8 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
             noncoreg_inf_sum = noncoregistered_inflammation_scatter_1 + noncoregistered_inflammation_scatter_2;
             noncoregistered_inflammation_scatter = double((noncoreg_inf_sum(:,:,1) < 2));
         end
-
-        if rotation == 1
-            noncoregistered_inflammation_scatter = imrotate(noncoregistered_inflammation_scatter, 180);
-        elseif rotation == 2
-            noncoregistered_inflammation_scatter = imrotate(noncoregistered_inflammation_scatter, 90);
-        else
-        end
+        
+        noncoregistered_inflammation_scatter = imrotate(noncoregistered_inflammation_scatter, rotation);
 
         %% 3. coregister GFAP scatterplot to og iron image
 
@@ -244,12 +239,9 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
                     partially_coreg_blue_channel_inflammation = imwarp(no_outside_outline_filt_blue, Rresized_Aiforia_tissue_map, tform_screenshot_inflammation, 'OutputView', Roriginal_inflammation);
                     partially_coreg_red_channel_inflammation = imwarp(no_outside_outline_filt_red, Rresized_Aiforia_tissue_map, tform_screenshot_inflammation, 'OutputView', Roriginal_inflammation);
 
-                    if rotation == 1
-                        partially_coregistered_tissue_map_inflammation = imrotate(partially_coregistered_tissue_map_inflammation, 180);
-                        partially_coreg_blue_channel_inflammation = imrotate(partially_coreg_blue_channel_inflammation, 180);
-                        partially_coreg_red_channel_inflammation = imrotate(partially_coreg_red_channel_inflammation, 180);
-                    else
-                    end
+                    partially_coregistered_tissue_map_inflammation = imrotate(partially_coregistered_tissue_map_inflammation, rotation);
+                    partially_coreg_blue_channel_inflammation = imrotate(partially_coreg_blue_channel_inflammation, rotation);
+                    partially_coreg_red_channel_inflammation = imrotate(partially_coreg_red_channel_inflammation, rotation);
 
                     Rpartially_coregistered_tissue_map_inflammation = imref2d(size(partially_coregistered_tissue_map_inflammation));
                     noD_coregistered_tissue_map_inflammation = imwarp(partially_coregistered_tissue_map_inflammation, Rpartially_coregistered_tissue_map_inflammation, tform, 'OutputView', Roriginal_iron);
@@ -319,23 +311,6 @@ for brain = [1:5, 7:9, 11, 13:15, 17:18, 20:25]
         cd(directory.scripts)
         stat_iron = PatchGenerator_density_comparison(iron_heat_map, size_patch, size_patch, 'Zeros');
         stat_inflammation = PatchGenerator_density_comparison(inflammation_heat_map, size_patch, size_patch, 'Zeros');
-
-        %% 8. Dice analysis
-
-        %bw_inflammation_tissue_mask = double(im2bw(imwarp(inflammation_tissue_mask, D)));
-        %cortex_similarity = dice(iron_tissue_mask, bw_inflammation_tissue_mask);
-
-        %[bw_iron, ~] = extract_tissue(original_iron, iron_tissue_mask, 'Iron');
-        %[noncoreg_bw_inflammation, ~] = extract_tissue(original_inflammation, inflammation_tissue_mask, inflammatory_marker);
-
-        %if rotation == 1
-        %noncoreg_bw_inflammation = imrotate(noncoreg_bw_inflammation, 180);
-        %end
-
-        %Rnoncoreg_bw_inflammation = imref2d(size(noncoreg_bw_inflammation));
-        %partially_coreg_bw_inflammation = imwarp(noncoreg_bw_inflammation, Rnoncoreg_bw_inflammation, tform, 'OutputView', Rpartially_coregistered_tissue_map_inflammation, 'FillValues', 1);
-        %bw_inflammation = imwarp(partially_coreg_bw_inflammation, D, 'FillValues', 0);
-        %section_similarity = dice(bw_iron, bw_inflammation);
 
         %% 9. make and save data tables and graphs
 

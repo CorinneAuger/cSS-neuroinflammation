@@ -104,13 +104,7 @@ for brain = [1:3, 5, 7:9, 11, 13:15, 17, 18, 20:25]
                 noncoregistered_inflammation_scatter = noncoregistered_inflammation_scatter_1 + noncoregistered_inflammation_scatter_2;
             end
 
-            if rotation == 1
-                noncoregistered_inflammation_scatter = imrotate(noncoregistered_inflammation_scatter, 180);
-            elseif rotation == 2
-                noncoregistered_inflammation_scatter = imrotate(noncoregistered_inflammation_scatter, 90);
-            else
-            end
-
+            noncoregistered_inflammation_scatter = imrotate(noncoregistered_inflammation_scatter, rotation);
             close all
 
             %% Coregister inflammation scatterplot to og iron image
