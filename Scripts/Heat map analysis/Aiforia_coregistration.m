@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function [rotation, D, tform, coregistered_stain, fixed, moving] = Aiforia_coregistration(cohort, directory, brain, block, fixed_image_stain, moving_image_stain)
 
 %% Coregisters NanoZoomer scans of two serial sections with different stains
@@ -6,17 +5,13 @@ function [rotation, D, tform, coregistered_stain, fixed, moving] = Aiforia_coreg
 % If the coregistration doesn't work the first time, try changing "affine" to "similarity" and increasing the maximum iterations.
 
 % Arguments
-<<<<<<< HEAD
 %   cohort: 'CAA' or 'ADRC'
 %   directory: struct of paths. Needs to include scripts, images_sizes_spreadsheets, and original_images.
-=======
->>>>>>> 14dfe0cc537b5b3c6d811393005722c6c19751f1
 %   brain: number (ex. for CAA3_7_GFAP, brain = 3)
 %   block: number (ex. for CAA3_7_GFAP, block = 7)
 %   fixed_image_stain: name of stain to which the other stain will be coregistered, in quotes (ex. 'Iron')
 %   moving_image_stain: name of stain that will be coregistered to the other stain, in quotes (ex. 'GFAP')
 
-<<<<<<< HEAD
 %% Get slide names
 if strcmp(cohort, 'CAA')
     fixed_slide_name = sprintf('CAA%d_%d_%s.png', brain, block, fixed_image_stain);
@@ -25,11 +20,10 @@ elseif strcmp(cohort, 'ADRC')
     fixed_slide_name = sprintf('%d_%d_%s.png', brain, block, fixed_image_stain);
     moving_slide_name = sprintf('%d_%d_%s.png', brain, block, moving_image_stain);
 end
-=======
+
 %% Input directory
 directory.original_images = '/Volumes/Corinne hard drive/cSS project/Original images';
 directory.image_sizes_spreadsheets = '/Users/corinneauger/Documents/Aiforia heatmap coregistration/Image sizes spreadsheets';
->>>>>>> 14dfe0cc537b5b3c6d811393005722c6c19751f1
 
 %% Import images and convert to gray
 cd(directory.original_images)
