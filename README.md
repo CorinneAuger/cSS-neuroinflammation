@@ -14,6 +14,6 @@ Takes NanoZoomer-digitized sections of 6um-thick formalin-fixed, paraffin-embedd
 6. **Lobe density comparison:** generates data on object density vs. cortical lobe, which can be tested for significant differences between lobes.
 
 ## Contact: 
-Corinne Auger
-Lab technician, Van Veluw lab (MGH Institute for Neurodegenerative Disease), 2020-2023
+Corinne Auger <br>
+Lab technician, Van Veluw lab (MGH Institute for Neurodegenerative Disease), 2020-2023 <br>
 corinneauger7@gmail.com
